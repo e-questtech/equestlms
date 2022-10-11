@@ -1,6 +1,6 @@
 import pytest
 
-from equestlms.home.models import User
+from equestlms.home.models import CustomUser
 from equestlms.home.tests.factories import UserFactory
 
 
@@ -10,5 +10,5 @@ def media_storage(settings, tmpdir):
 
 
 @pytest.fixture
-def user(db) -> User:
+def user(db) -> CustomUser:
     return UserFactory()
