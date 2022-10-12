@@ -42,8 +42,4 @@ class MediaHelper:
     @staticmethod
     def get_document_upload_path(model, filename):
         """generate document path for audio to prevent duplicate"""
-        return MediaHelper._upload_path(
-            model,
-            f"documents/{now().date()}",
-            filename
-        )
+        return MediaHelper._upload_path(model, f"documents/{now().date()}", filename)

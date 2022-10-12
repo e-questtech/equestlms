@@ -1,6 +1,7 @@
-from .base import *  # noqa
-from .base import env
 import os
+
+from .base import *  # noqa
+from .base import ROOT_DIR, env  # noqa
 
 # GENERAL
 # ------------------------------------------------------------------------------
@@ -47,11 +48,11 @@ INTERNAL_IPS = ["127.0.0.1", "10.0.2.2"]
 
 # Database
 DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(ROOT_DIR, 'db.sqlite3'),
-        }
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": os.path.join(ROOT_DIR, "db.sqlite3"),
     }
+}
 # django-extensions
 # ------------------------------------------------------------------------------
 # https://django-extensions.readthedocs.io/en/latest/installation_instructions.html#configuration

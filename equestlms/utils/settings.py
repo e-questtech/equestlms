@@ -31,7 +31,5 @@ def get_app_settings():
     """
     set default settings module or get from environment variable
     """
-    setting = get_env_variable(
-        "DJANGO_SETTINGS_MODULE", "aritek.development_settings"
-    )
+    setting = get_env_variable("DJANGO_SETTINGS_MODULE", "aritek.development_settings")
     return setting

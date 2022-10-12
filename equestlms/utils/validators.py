@@ -7,6 +7,7 @@ class FileValidatorHelper:
     """
     Velper class to validate files
     """
+
     @staticmethod
     def validate_file_extension(value):
         """
@@ -14,18 +15,10 @@ class FileValidatorHelper:
         """
 
         ext = os.path.splitext(value.name)[1]
-        valid_extensions = [
-            ".pdf",
-            ".doc",
-            ".docx",
-            ".jpg",
-            ".png",
-            ".xlsx",
-            ".xls"]
+        valid_extensions = [".pdf", ".doc", ".docx", ".jpg", ".png", ".xlsx", ".xls"]
 
         if not ext.lower() in valid_extensions:
-            raise ValidationError(
-                "pdf,doc,docx,xlsx,xls,jpg and png file supported.")
+            raise ValidationError("pdf,doc,docx,xlsx,xls,jpg and png file supported.")
 
     @staticmethod
     def validate_file_size(value):
@@ -35,8 +28,7 @@ class FileValidatorHelper:
         filesize = value.size
 
         if filesize > 5242880:
-            raise ValidationError(
-                "The maximum file size that can be uploaded is 5MB")
+            raise ValidationError("The maximum file size that can be uploaded is 5MB")
 
         return value
 
@@ -47,8 +39,7 @@ class FileValidatorHelper:
         """
         filesize = value.size
         if filesize > 2097152:
-            raise ValidationError(
-                "The maximum file size that can be uploaded is 2MB")
+            raise ValidationError("The maximum file size that can be uploaded is 2MB")
 
         return value
 

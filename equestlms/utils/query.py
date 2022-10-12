@@ -22,8 +22,7 @@ class QueryHelper:
              and   spaces')
         ['some', 'random', 'words', 'with quotes', 'and', 'spaces']
         """
-        return [normspace(" ", (t[0] or t[1]).strip())
-                for t in findterms(query_string)]
+        return [normspace(" ", (t[0] or t[1]).strip()) for t in findterms(query_string)]
 
     @staticmethod
     def get_query(query_string: str, search_fields: list):
