@@ -1,4 +1,5 @@
 from .base import *  # noqa
+from .base import MIDDLEWARE  # noqa
 from .base import env
 
 # GENERAL
@@ -71,6 +72,7 @@ EMAIL_SUBJECT_PREFIX = env(
     "DJANGO_EMAIL_SUBJECT_PREFIX",
     default="[EquestLMS]",
 )
+MIDDLEWARE.insert(1, "whitenoise.middleware.WhiteNoiseMiddleware")
 
 # ADMIN
 # ------------------------------------------------------------------------------
