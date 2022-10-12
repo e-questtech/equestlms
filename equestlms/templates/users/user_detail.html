@@ -1,34 +1,226 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}User: {{ object.username }}{% endblock %}
+{% block css %}
+		<!-- Favicon -->
+		<link rel="shortcut icon" type="image/x-icon" href="{% static '/img/favicon.svg' %}">
 
-{% block content %}
-<div class="container">
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
 
-  <div class="row">
-    <div class="col-sm-12">
+		<!-- Fontawesome CSS -->
+		<link rel="stylesheet" href="{% static 'plugins/fontawesome/css/fontawesome.min.css' %}">
+		<link rel="stylesheet" href="{% static 'plugins/fontawesome/css/all.min.css' %}">
 
-      <h2>{{ object.username }}</h2>
-      {% if object.name %}
-        <p>{{ object.name }}</p>
-      {% endif %}
-    </div>
-  </div>
+		<!-- Feather CSS -->
+		<link rel="stylesheet" href="{% static 'css/feather.css' %}">
 
-{% if object == request.user %}
-<!-- Action buttons -->
-<div class="row">
+		<!-- Select2 CSS -->
+		<link rel="stylesheet" href="{% static 'plugins/select2/css/select2.min.css' %}">
 
-  <div class="col-sm-12">
-    <a class="btn btn-primary" href="{% url 'users:update' %}" role="button">My Info</a>
-    <a class="btn btn-primary" href="{% url 'account_email' %}" role="button">E-Mail</a>
-    <!-- Your Stuff: Custom user template urls -->
-  </div>
+		<!-- Main CSS -->
+		<link rel="stylesheet" href="{% static 'css/style.css' %}">
 
-</div>
-<!-- End Action buttons -->
-{% endif %}
+{% endblock css %}
 
-</div>
-{% endblock content %}
+{% block body %}
+<!--Dashbord Student -->
+			<div class="page-content">
+				<div class="container">
+					<div class="row">
+
+						<!-- sidebar -->
+						<div class="col-xl-3 col-md-4 theiaStickySidebar">
+							<div class="settings-widget dash-profile mb-3">
+								<div class="settings-menu p-0">
+									<div class="profile-bg">
+										<h5>Student</h5>
+										<img src="{% static 'img/profile-bg.jpg' %}" alt="">
+										<div class="profile-img">
+											<a href="student-profile.html"><img src="{% static 'img/user/user11.jpg' %}" alt=""></a>
+										</div>
+									</div>
+									<div class="profile-group">
+										<div class="profile-name text-center">
+											<h4><a href="#">{{ user }}</a></h4>
+											<p>Student</p>
+										</div>
+										<div class="go-dashboard text-center">
+											<a href="deposit-student-dashboard.html" class="btn btn-primary">Go to Dashboard</a>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="settings-widget account-settings">
+								<div class="settings-menu">
+									<h3>ACCOUNT SETTINGS</h3>
+									<ul>
+
+                    {% if request.path == user.get_absolute_url %}
+										<li class="nav-item active">
+											<a href="{{ user.get_absolute_url }}" class="nav-link">
+												<i class="feather-settings"></i> Edit Profile
+											</a>
+										</li>
+                    <li class="nav-item">
+											<a href="{% url 'account_change_password' %}" class="nav-link">
+												<i class="feather-user"></i> Security
+											</a>
+										</li>
+                    {% endif %}
+                    {% if request.path == '/accounts/password/change/' %}
+										<li class="nav-item">
+											<a href="{{ user.get_absolute_url }}" class="nav-link">
+												<i class="feather-settings"></i> Edit Profile
+											</a>
+										</li>
+                    <li class="nav-item active">
+											<a href="{% url 'account_change_password' %}" class="nav-link">
+												<i class="feather-user"></i> Security
+											</a>
+										</li>
+                    {% endif %}
+
+										<li class="nav-item">
+											<a href="login.html" class="nav-link">
+												<i class="{% url 'account_logout' %}"></i> Sign Out
+											</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<!-- /sidebar -->
+
+            {% block profile %}
+						<!-- Profile Details -->
+						<div class="col-xl-9 col-md-8">
+							<div class="settings-widget profile-details">
+								<div class="settings-menu p-0">
+									<div class="profile-heading">
+										<h3>Profile Details</h3>
+										<p>You have full control to manage your own account setting.</p>
+									</div>
+									<div class="course-group mb-0 d-flex">
+										<div class="course-group-img d-flex align-items-center">
+											<a href="student-profile.html"><img src="{% static 'img/user/user11.jpg' %}" alt="" class="img-fluid"></a>
+											<div class="course-name">
+												<h4><a href="student-profile.html">Your avatar</a></h4>
+												<p>PNG or JPG no bigger than 800px wide and tall.</p>
+											</div>
+										</div>
+										<div class="profile-share d-flex align-items-center justify-content-center">
+											<a href="javascript:;" class="btn btn-success">Update</a>
+											<a href="javascript:;" class="btn btn-danger">Delete</a>
+										</div>
+									</div>
+									<div class="checkout-form personal-address add-course-info ">
+										<div class="personal-info-head">
+											<h4>Personal Details</h4>
+											<p>Edit your personal information and address.</p>
+										</div>
+										<form action="#">
+											<div class="row">
+												<div class="col-lg-6">
+													<div class="form-group">
+														<label class="form-control-label">First Name</label>
+														<input type="text" class="form-control" placeholder="Enter your first Name">
+													</div>
+												</div>
+												<div class="col-lg-6">
+													<div class="form-group">
+														<label class="form-control-label">Last Name</label>
+														<input type="text" class="form-control" placeholder="Enter your last Name">
+													</div>
+												</div>
+												<div class="col-lg-6">
+													<div class="form-group">
+														<label class="form-control-label">Phone</label>
+														<input type="text" class="form-control" placeholder="Enter your Phone">
+													</div>
+												</div>
+												<div class="col-lg-6">
+													<div class="form-group">
+														<label class="form-control-label">Email</label>
+														<input type="text" class="form-control" placeholder="Enter your Email">
+													</div>
+												</div>
+												<div class="col-lg-6">
+													<div class="form-group">
+														<label class="form-control-label">Birthday</label>
+														<input type="text" class="form-control" placeholder="Birth of Date">
+													</div>
+												</div>
+												<div class="col-lg-6">
+													<div class="form-group">
+														<label  class="form-label">Country</label>
+														<select class="form-select select country-select"  name="sellist1">
+															<option>Select country</option>
+															<option>India</option>
+															<option>America</option>
+															<option>London</option>
+														</select>
+													</div>
+												</div>
+												<div class="col-lg-6">
+													<div class="form-group">
+														<label class="form-control-label">Address Line 1</label>
+														<input type="text" class="form-control" placeholder="Address">
+													</div>
+												</div>
+												<div class="col-lg-6">
+													<div class="form-group">
+														<label class="form-control-label">Address Line 2 (Optional)</label>
+														<input type="text" class="form-control" placeholder="Address">
+													</div>
+												</div>
+												<div class="col-lg-6">
+													<div class="form-group">
+														<label class="form-control-label">City</label>
+														<input type="text" class="form-control" placeholder="Enter your City">
+													</div>
+												</div>
+												<div class="col-lg-6">
+													<div class="form-group">
+														<label class="form-control-label">ZipCode</label>
+														<input type="text" class="form-control" placeholder="Enter your Zipcode" >
+													</div>
+												</div>
+												<div class="update-profile">
+													<button type="button" class="btn btn-primary">Update Profile</button>
+												</div>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- Profile Details -->
+            {% endblock profile %}
+
+					</div>
+				</div>
+			</div>
+			<!-- /Dashbord Student -->
+{% endblock body %}
+
+{% block bottom_js %}
+		<!-- jQuery -->
+		<script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+
+		<!-- Bootstrap Core JS -->
+		<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+
+		<!-- Select2 JS -->
+	  	<script src="{% static 'plugins/select2/js/select2.min.js' %}"></script>
+
+		<!-- Feature JS -->
+		<script src="{% static 'plugins/feather/feather.min.js' %}"></script>
+
+		<!-- Sticky Sidebar JS -->
+        <script src="{% static 'plugins/theia-sticky-sidebar/ResizeSensor.js' %}"></script>
+        <script src="{% static 'plugins/theia-sticky-sidebar/theia-sticky-sidebar.js' %}"></script>
+
+		<!-- Custom JS -->
+		<script src="{% static 'js/script.js' %}"></script>
+{% endblock bottom_js %}

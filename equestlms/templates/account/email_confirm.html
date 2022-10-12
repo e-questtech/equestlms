@@ -1,19 +1,71 @@
-{% extends "account/base.html" %}
+{% extends "account/_base.html" %}
 
 {% load i18n %}
 {% load account %}
+{% load static %}
 
 {% block head_title %}{% translate "Confirm E-mail Address" %}{% endblock %}
 
 
+{% block navbar %}
+
+{% endblock navbar %}
+
 {% block inner %}
+				<!-- Verification Sent Banner -->
+				<div class="col-md-6 login-bg">
+					<div class="owl-carousel login-slide owl-theme">
+						<div class="welcome-login">
+							<div class="login-banner">
+								<img src="{% static 'img/login-img.png' %}" class="img-fluid" alt="Logo">
+							</div>
+							<div class="mentor-course text-center">
+                {% if confirmation %}
+
+                {% user_display confirmation.email_address.user as user_display %}
+
+                <p>{% blocktranslate with confirmation.email_address.email as email %}Please confirm that <a href="mailto:{{ email }}">{{ email }}</a> is an e-mail address for user {{ user_display }}.{% endblocktranslate %}</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- /Verification Sent Banner -->
+        <div class="col-md-6 login-wrap-bg">
+
+					<!-- Verification Sent -->
+					<div class="login-wrapper">
+						<div class="loginbox">
+							<div class="w-100">
+								<div class="img-logo">
+									<img src="{% static 'img/logo.svg' %}" class="img-fluid" alt="Logo">
+									<div class="back-home">
+										<a href="{% url 'home:index' %}">Back to Home</a>
+									</div>
+								</div>
+                <h1>{% translate "Confirm E-mail Address" %}</h1>
+                <form method="post" action="{% url 'account_confirm_email' confirmation.key %}">
+                  {% csrf_token %}
+                      <button class="btn btn-primary" type="submit">{% translate 'Confirm' %}</button>
+                </form>
+                {% else %}
+
+                {% url 'account_email' as email_url %}
+
+                <p>{% blocktranslate %}This e-mail confirmation link expired or is invalid. Please <a href="{{ email_url }}">issue a new e-mail confirmation request</a>.{% endblocktranslate %}</p>
+							</div>
+						</div>
+					</div>
+					<!-- /Verification Sent -->
+
+				</div>
+        {% endif %}
+{% endblock inner %}
+{% block footer %}
+
+{% endblock footer %}
+
+{% comment %}
 <h1>{% translate "Confirm E-mail Address" %}</h1>
-
-{% if confirmation %}
-
-{% user_display confirmation.email_address.user as user_display %}
-
-<p>{% blocktranslate with confirmation.email_address.email as email %}Please confirm that <a href="mailto:{{ email }}">{{ email }}</a> is an e-mail address for user {{ user_display }}.{% endblocktranslate %}</p>
 
 <form method="post" action="{% url 'account_confirm_email' confirmation.key %}">
 {% csrf_token %}
@@ -29,3 +81,5 @@
 {% endif %}
 
 {% endblock %}
+
+{% endcomment %}

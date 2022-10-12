@@ -1,52 +1,230 @@
-# EquestLMS
+# Equesttech
 
-Learning management system for equest technical
+A platform for teaching and mentoring students in tech
 
-[![Built with Cookiecutter Django](https://img.shields.io/badge/built%20with-Cookiecutter%20Django-ff69b4.svg?logo=cookiecutter)](https://github.com/cookiecutter/cookiecutter-django/)
-[![Black code style](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
+## Useful links
 
-## Settings
+- [GitHub repo](https://github.com/Victhereum/equestlms.git)
+- [Theme](https://dreamslms.dreamguystech.com/html/index.html)
 
-Moved to [settings](http://cookiecutter-django.readthedocs.io/en/latest/settings.html).
+## Requirements
 
-## Basic Commands
+- Python / Django 3.2
 
-### Setting Up Your Users
+## Project setup
 
--   To create a **normal user account**, just go to Sign Up and fill out the form. Once you submit it, you'll see a "Verify Your E-mail Address" page. Go to your console to see a simulated email verification message. Copy the link into your browser. Now the user's email should be verified and ready to go.
+If not using docker, you can setup a virtual environment using the command below
 
--   To create a **superuser account**, use this command:
+```sh
+python -m venv env
+```
 
-        $ python manage.py createsuperuser
+then activate it with
 
-For convenience, you can keep your normal user logged in on Chrome and your superuser logged in on Firefox (or similar), so that you can see how the site behaves for both kinds of users.
+```sh
+./env/Scripts/activate   # windows or
+source env/bin/activate  # linux or mac
+```
 
-### Type checks
+## Install required packages
 
-Running type checks with mypy:
+Run the command below
 
-    $ mypy equestlms
+```sh
+python -m pip install -r requirements/local.txt
+```
 
-### Test coverage
+Once the virtual environment has been activated, install the necessary requirements by using the command below
 
-To run the tests, check your test coverage, and generate an HTML coverage report:
+```sh
+python manage.py migrate
+```
 
-    $ coverage run -m pytest
-    $ coverage html
-    $ open htmlcov/index.html
+## Database backups and restore
 
-#### Running tests with pytest
+Sometimes you may want to delete your database but don't want to lose your data. To do this, run the following script
 
-    $ pytest
+## Backup command
 
-### Live reloading and Sass CSS compilation
+```sh
+python -Xutf8 manage.py dumpdata --natural-primary --exclude=contenttypes --exclude=auth.permission --exclude=admin.logentry --exclude=sessions.session > ../data.json
+```
 
-Moved to [Live reloading and SASS compilation](https://cookiecutter-django.readthedocs.io/en/latest/developing-locally.html#sass-compilation-live-reloading).
+## Restore command
 
-## Deployment
+```sh
+python manage.py loaddata ../data.json
+```
 
-The following details how to deploy this application.
 
-### Heroku
+## Important steps
 
-See detailed [cookiecutter-django Heroku documentation](http://cookiecutter-django.readthedocs.io/en/latest/deployment-on-heroku.html).
+### Pre development
+- Go to the GitHub issue board (https://github.com/Victhereum/equestlms.git/-/boards)
+- In the `selected for development` lane, choose a ticket an assign to yourself
+- Move the chosen ticket to in progress
+- Create a branch in your local pc but branching from the develop branch.
+
+```sh
+git checkout -b EQU-1/lowercased-short-description
+```
+
+### Dev complete
+- Once coding is done, run `git commit -m "short description"`
+- run the `scripts.sh` script.
+- Alternatively, you can manually run the commands below
+
+```sh
+pylint $(git ls-files '*.py')
+flake8
+python manage.py test --keepdb -v 2
+```
+
+- If successful, `git push` your code to GitHub
+- Create a merge request using the link generated from the terminal
+### Dev complete
+
+- Notify two colleagues to perform code reviews
+- If code review is successful, merge to develop and move ticket to `closed` lane on GitHub
+
+## Contribution
+
+Pick a ticket on the [GitHub repository](https://github.com/Victhereum/equestlms.git). If you haven't cloned the repository, use the command to clone from the terminal
+
+```sh
+git clone https://github.com/Victhereum/equestlms.git
+```
+
+When creating a new branch, **ENSURE** that the branch name starts with the format **SSS-&lt;issue-no&gt;-&lt;short-description&gt;** e.g. **EQU-1-project-setup** and the main branch is from develop. use the command below when creating a new branch.
+
+```
+git checkout develop
+git branch -b <branch name>
+```
+
+Before creating a pull request, run the commands and fix any warning/errors encountered
+
+```
+sh ./scripts.sh
+
+git add .
+git commit -m "my commit message"
+git push -u origin <branch name>
+```
+
+> **Note:** You will need to have isort, autopep8, black and pylint installed for this to work and you can install it using the commands below.
+
+```sh
+python -m pip install autopep8 pylint isort flake8
+```
+
+When creating a pull request, please select the target branch as `develop`.
+
+- After writing your code, make sure to run the `scripts.sh` file and **ENSURE** it passes before pushing to the git repository. Use the command below to run the test.
+
+```sh
+sh ./scripts.sh
+```
+
+## Pushing to the repository
+Please run
+```sh
+pre-commit install
+```
+Run the following command
+
+```sh
+ # stage your commits
+$ git add .
+ # Commit
+$ git commit -m "short desrciption"
+ # if pushing for the first time
+$ git push -u origin <branchname>
+
+# if pushing normally
+$ git push
+```
+
+## Installing make
+
+```sh
+# Install make on windows
+choco install make
+
+# Linux or mac
+sudo apt install make
+```
+
+## Using make command
+
+* Export database content as json for backup purposes
+
+```sh
+make backup
+```
+
+* Creates a virtual environment in current working directory
+
+```sh
+make env
+```
+
+* Fixes your database if it gets corrupted. Creates a backup and also restore current data
+
+```sh
+make fixdb
+```
+
+* Displays help text on how to use the makefile
+
+```sh
+make help
+```
+
+* Syncs the project dependencies
+
+```sh
+make install
+```
+
+* Checks if code is conforming to best practices like PEP8
+
+```sh
+make lint
+```
+
+* Runs makemigrations and migrate commands
+
+```sh
+make migrate
+```
+
+* Pushes committed changes to the GitHub remote repository
+
+```sh
+make push
+```
+
+* Loads previously backed up data into the database
+
+```sh
+make restore
+```
+
+* Spawns the Django server
+
+```sh
+make server
+```
+
+* Runs unit test
+
+```sh
+make test
+```
+
+* Syncs the project dependencies
+
+```sh
+make update
+```

@@ -1,12 +1,38 @@
-{% extends "account/base.html" %}
-
-{% load i18n %}
-
-{% block head_title %}{% translate "Verify Your E-mail Address" %}{% endblock %}
-
+{% extends "./_base.html" %}
+{% load static %}
 {% block inner %}
-    <h1>{% translate "Verify Your E-mail Address" %}</h1>
+				<!-- Verification Sent Banner -->
+				<div class="col-md-6 login-bg">
+					<div class="owl-carousel login-slide owl-theme">
+						<div class="welcome-login">
+							<div class="login-banner">
+								<img src="{% static 'img/login-img.png' %}" class="img-fluid" alt="Logo">
+							</div>
+							<div class="mentor-course text-center">
+								<h2>Verification <br>Sent</h2>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- /Verification Sent Banner -->
 
-    <p>{% blocktranslate %}We have sent an e-mail to you for verification. Follow the link provided to finalize the signup process. Please contact us if you do not receive it within a few minutes.{% endblocktranslate %}</p>
+				<div class="col-md-6 login-wrap-bg">
 
+					<!-- Verification Sent -->
+					<div class="login-wrapper">
+						<div class="loginbox">
+							<div class="w-100">
+								<div class="img-logo">
+									<img src="{% static 'img/logo.svg' %}" class="img-fluid" alt="Logo">
+									<div class="back-home">
+										<a href="{% url 'home:index' %}">Back to Home</a>
+									</div>
+								</div>
+                <p>We have sent an e-mail to you for verification. Follow the link provided to finalize the signup process. Please contact us if you do not receive it within a few minutes.</p>
+							</div>
+						</div>
+					</div>
+					<!-- /Verification Sent -->
+
+				</div>
 {% endblock %}

@@ -2,6 +2,7 @@ import auto_prefetch
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
+from django.urls import reverse
 from django_resized import ResizedImageField
 
 from equestlms.utils.media import MediaHelper
@@ -41,6 +42,14 @@ class UserManager(BaseUserManager):
 
         return self._create_user(email, password, **extra_fields)
 
+    def create_staff(self, email, password, **extra_fields):
+        """Create and save a StaffUser with the given email and password."""
+        extra_fields.setdefault("is_staff", True)
+        if extra_fields.get("is_staff") is not True:
+            raise ValueError("StaffUser must have is_staff=True.")
+
+        return self._create_user(email, password, **extra_fields)
+
 
 class CustomUser(TimeBasedModel, AbstractUser):
     USERNAME_FIELD = "username"
@@ -71,4 +80,7 @@ class CustomUser(TimeBasedModel, AbstractUser):
         if self.profile_pic:
             return self.profile_pic.url
 
-        return f"{settings.STATIC_URL}images/avatar/default_avatar.png"
+        return f"{settings.STATIC_URL}img/logo.svg"
+
+    def get_absolute_url(self):
+        return reverse("home:profile", kwargs={"username": self.username})
