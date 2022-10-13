@@ -52,7 +52,7 @@ if os.getenv("DATABASE_URL", "") != "":
             "HOST": r.hostname,
             "PASSWORD": r.password,
             "PORT": r.port,
-            "OPTIONS": {"sslmode": "require"},
+            # "OPTIONS": {"sslmode": "require"},
         }
     }
 else:
