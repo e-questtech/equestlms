@@ -1,6 +1,7 @@
 import os
 
 from .base import *  # noqa
+from .base import urlparse  # noqa
 from .base import ROOT_DIR, env  # noqa
 
 # GENERAL
@@ -46,13 +47,29 @@ DEBUG_TOOLBAR_CONFIG = {
 # https://django-debug-toolbar.readthedocs.io/en/latest/installation.html#internal-ips
 INTERNAL_IPS = ["127.0.0.1", "10.0.2.2"]
 
-# Database
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": os.path.join(ROOT_DIR, "db.sqlite3"),
+# DATABASES
+# ------------------------------------------------------------------------------
+# https://docs.djangoproject.com/en/dev/ref/settings/#databases
+if os.getenv("DATABASE_URL", "") != "":
+    r = urlparse(os.environ.get("DATABASE_URL"))
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql_psycopg2",
+            "NAME": os.path.relpath(r.path, "/"),
+            "USER": r.username,
+            "HOST": r.hostname,
+            "PASSWORD": r.password,
+            "PORT": r.port,
+            "OPTIONS": {"sslmode": "require"},
+        }
     }
-}
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": os.path.join(ROOT_DIR, "db.sqlite3"),
+        }
+    }
 # django-extensions
 # ------------------------------------------------------------------------------
 # https://django-extensions.readthedocs.io/en/latest/installation_instructions.html#configuration
