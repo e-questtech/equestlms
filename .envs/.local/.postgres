@@ -1,0 +1,7 @@
+# PostgreSQL
+# ------------------------------------------------------------------------------
+POSTGRES_HOST=postgres
+POSTGRES_PORT=5432
+POSTGRES_DB=equestlms
+POSTGRES_USER=IzsgETqCjWekVjFhlStlvZOXWcYueOMV
+POSTGRES_PASSWORD=ATTwBzohZEA3WF4AVzH971UsTWUEeP4VvJYWvuYAlwksXWwdfLzRkG9n6Vv0SCyV

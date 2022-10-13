@@ -273,4 +273,4 @@ equestlms/media/
 
 .pytest_cache/
 .env
-.envs/*
+# .envs/*
