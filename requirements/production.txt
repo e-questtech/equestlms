@@ -4,7 +4,7 @@
 
 gunicorn==20.1.0  # https://github.com/benoitc/gunicorn
 psycopg2==2.9.4  # https://github.com/psycopg/psycopg2
-whitenoise==6.0.0
+whitenoise==6.2.0
 
 # Django
 # ------------------------------------------------------------------------------
