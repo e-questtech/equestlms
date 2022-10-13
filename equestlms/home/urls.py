@@ -3,6 +3,7 @@ from django.urls import path
 from equestlms.home import views
 
 app_name = "home"
+
 urlpatterns = [
     path("", view=views.IndexView.as_view(), name="index"),
     path("user/~redirect/", view=views.user_redirect_view, name="redirect"),
