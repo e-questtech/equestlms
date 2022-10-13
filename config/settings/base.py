@@ -42,7 +42,6 @@ LOCALE_PATHS = [str(ROOT_DIR / "locale")]
 # DATABASES
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
-
 if os.getenv("DATABASE_URL", "") != "":
     r = urlparse(os.environ.get("DATABASE_URL"))
     DATABASES = {
@@ -56,7 +55,14 @@ if os.getenv("DATABASE_URL", "") != "":
             "OPTIONS": {"sslmode": "require"},
         }
     }
-# DATABASES["default"]["ATOMIC_REQUESTS"] = True
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": os.path.join(ROOT_DIR, "db.sqlite3"),
+        }
+    }
+DATABASES["default"]["ATOMIC_REQUESTS"] = True
 # https://docs.djangoproject.com/en/stable/ref/settings/#std:setting-DEFAULT_AUTO_FIELD
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
