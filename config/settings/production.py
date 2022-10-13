@@ -31,10 +31,10 @@ else:
             "NAME": os.path.join(ROOT_DIR, "db.sqlite3"),
         }
     }
-DATABASES["default"]["ATOMIC_REQUESTS"] = True
-DATABASES["default"] = env.db("DATABASE_URL")  # noqa F405
-DATABASES["default"]["ATOMIC_REQUESTS"] = True  # noqa F405
-DATABASES["default"]["CONN_MAX_AGE"] = env.int("CONN_MAX_AGE", default=60)  # noqa F405
+# DATABASES["default"]["ATOMIC_REQUESTS"] = True
+# DATABASES["default"] = env.db("DATABASE_URL")  # noqa F405
+# DATABASES["default"]["ATOMIC_REQUESTS"] = True  # noqa F405
+# DATABASES["default"]["CONN_MAX_AGE"] = env.int("CONN_MAX_AGE", default=60)  # noqa F405
 
 # CACHES
 # ------------------------------------------------------------------------------
