@@ -1,9 +1,7 @@
 """
 Base settings to build other settings files upon.
 """
-import os
 from pathlib import Path
-from urllib.parse import urlparse
 
 import environ
 
@@ -39,30 +37,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/dev/ref/settings/#locale-paths
 LOCALE_PATHS = [str(ROOT_DIR / "locale")]
 
-# DATABASES
-# ------------------------------------------------------------------------------
-# https://docs.djangoproject.com/en/dev/ref/settings/#databases
-if os.getenv("DATABASE_URL", "") != "":
-    r = urlparse(os.environ.get("DATABASE_URL"))
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.postgresql_psycopg2",
-            "NAME": os.path.relpath(r.path, "/"),
-            "USER": r.username,
-            "HOST": r.hostname,
-            "PASSWORD": r.password,
-            "PORT": r.port,
-            # "OPTIONS": {"sslmode": "require"},
-        }
-    }
-else:
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.sqlite3",
-            "NAME": os.path.join(ROOT_DIR, "db.sqlite3"),
-        }
-    }
-DATABASES["default"]["ATOMIC_REQUESTS"] = True
 # https://docs.djangoproject.com/en/stable/ref/settings/#std:setting-DEFAULT_AUTO_FIELD
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
@@ -96,6 +70,11 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     "equestlms.home",
+    "blog",
+    "videos",
+    "chatrooms",
+    "tutor",
+    "student",
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
