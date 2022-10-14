@@ -60,7 +60,7 @@ python manage.py loaddata ../data.json
 ## Important steps
 
 ### Pre development
-- Go to the GitHub issue board (https://github.com/Victhereum/equestlms.git/-/boards)
+- Go to the GitHub issue board (https://github.com/users/Victhereum/projects/4)
 - In the `selected for development` lane, choose a ticket an assign to yourself
 - Move the chosen ticket to in progress
 - Create a branch in your local pc but branching from the develop branch.
