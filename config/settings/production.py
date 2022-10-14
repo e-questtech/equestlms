@@ -1,6 +1,7 @@
+from urllib.parse import urlparse
+
 from .base import *  # noqa
-from .base import MIDDLEWARE  # noqa
-from .base import ROOT_DIR, env, os, urlparse
+from .base import MIDDLEWARE, ROOT_DIR, env, os
 
 # GENERAL
 # ------------------------------------------------------------------------------

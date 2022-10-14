@@ -1,7 +1,7 @@
 import os
+from urllib.parse import urlparse
 
 from .base import *  # noqa
-from .base import urlparse  # noqa
 from .base import ROOT_DIR, env  # noqa
 
 # GENERAL
