@@ -1,5 +1,15 @@
 from django.contrib import admin
 
-from .models import Video
+from videos.models import Video
 
-admin.site.register(Video)
+
+@admin.register(Video)
+class VideoAdmin(admin.ModelAdmin):
+    list_display = ["title", "alt_image", "url"]
+    list_filters = [
+        "title",
+        "start_date",
+        "end_date",
+    ]
+    ordering = ["-created_at", "-updated_at", "title"]
+    search_fields = ["title"]
