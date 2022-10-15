@@ -5,7 +5,7 @@ from videos.models import Video
 
 @admin.register(Video)
 class VideoAdmin(admin.ModelAdmin):
-    list_display = ["title", "alt_image", "url"]
+    list_display = ["title", "url"]
     list_filters = [
         "title",
         "start_date",
