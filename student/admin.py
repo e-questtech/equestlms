@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from tutor.models import Student
+from student.models import Student
 
 
 @admin.register(Student)
