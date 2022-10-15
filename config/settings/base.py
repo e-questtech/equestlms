@@ -66,6 +66,7 @@ THIRD_PARTY_APPS = [
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
+    "ckeditor",
 ]
 
 LOCAL_APPS = [
@@ -75,6 +76,7 @@ LOCAL_APPS = [
     "chatrooms",
     "tutor",
     "student",
+    "course"
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
