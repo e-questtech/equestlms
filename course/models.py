@@ -24,7 +24,7 @@ class Course(TimeBasedModel):
         default=0,
     )
     tutors = models.ForeignKey(
-        "tutor.Tutor", on_delete=models.CASCADE, related_name="course_tutor"
+        "tutor.Tutor", default=1, on_delete=models.CASCADE, related_name="course_tutor"
     )
     start_date = models.DateField()
     end_date = models.DateField()

@@ -1,6 +1,6 @@
 from django.urls import path
 
-from tutor import views
+from . import views
 
 app_name = "tutor"
 

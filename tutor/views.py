@@ -14,10 +14,6 @@ class TutorListView(generic.ListView):
 
 
 class TutorDashboardView(View, LoginRequiredMixin):
-
-    login_url = reverse("account_login")
-    redirect_field_name = reverse("tutor:tutor_dashboard")
-
     def get(self, request, **args):
 
         if self.request.user.is_staff:

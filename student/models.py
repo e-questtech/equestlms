@@ -14,10 +14,12 @@ class Student(TimeBasedModel):
         CustomUser, on_delete=models.CASCADE, primary_key=True, related_name="Student"
     )
     birthday = models.DateField()
-    enrolled = models.BooleanField()
+    is_enrolled = models.BooleanField(default=False)
     course = models.ManyToManyField("course.Course", blank=True)
 
-    print(course)
+    # TODO: Change the model manager is_enrolled to enrolled
+    # enrolled = StudentsEnrolled()
+    objects = models.Manager()
 
     def __str__(self):
         return self.user.get_full_name()
