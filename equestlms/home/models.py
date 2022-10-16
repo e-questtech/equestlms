@@ -83,4 +83,6 @@ class CustomUser(TimeBasedModel, AbstractUser):
         return f"{settings.STATIC_URL}img/logo.svg"
 
     def get_absolute_url(self):
+        if self.is_staff:
+            return reverse("tutor:tutor_dashboard")
         return reverse("home:profile", kwargs={"username": self.username})

@@ -28,6 +28,7 @@ class Course(TimeBasedModel):
     )
     start_date = models.DateField()
     end_date = models.DateField()
+    new = models.BooleanField(default=True)
 
     def __str__(self) -> str:
         return self.title
@@ -38,20 +39,15 @@ class Course(TimeBasedModel):
             self.slug = slugify(self.title) + "-" + uuid_start
 
         super().save()
-        StudentsInTutorCourse.objects.create(
-            tutor=self.tutors, course=Course.objects.get(slug=self.slug)
-        )
+        if self.new:
+            StudentsInTutorCourse.objects.create(
+                tutor=self.tutors, course=Course.objects.get(slug=self.slug)
+            )
+            self.new = False
+            self.new.save()
 
     def get_absolute_url(self):
         return reverse("course:course-detail", kwargs={"slug": self.slug})
-
-    @property
-    def total_students(self):
-        return self.students.count()
-
-    @property
-    def total_tutors(self):
-        return self.tutors.count()
 
     @property
     def tutor_courses_count(self):
@@ -96,6 +92,7 @@ class StudentsInTutorCourse(TimeBasedModel):
     course = auto_prefetch.ForeignKey(
         Course, default=1, on_delete=models.CASCADE, related_name="course_users"
     )
+    tasks = models.ManyToManyField("task.Task", related_name="course_tasks")
 
     class Meta:
         unique_together = ("tutor", "course")

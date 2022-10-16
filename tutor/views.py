@@ -1,4 +1,8 @@
-from django.views import generic
+from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import get_object_or_404, render
+from django.urls import reverse
+from django.views import View, generic
 
 from course.models import Course, StudentsInTutorCourse
 
@@ -9,6 +13,30 @@ class TutorListView(generic.ListView):
     paginate_by = 5
 
 
-class TutorDetailView(generic.DetailView):
-    model = StudentsInTutorCourse
-    template_name = "tutor/tutor_dashboard"
+class TutorDashboardView(View, LoginRequiredMixin):
+
+    login_url = reverse("account_login")
+    redirect_field_name = reverse("tutor:tutor_dashboard")
+
+    def get(self, request, **args):
+
+        if self.request.user.is_staff:
+            tutor = get_object_or_404(
+                StudentsInTutorCourse, tutor_id=self.request.user.id
+            )
+            context = {
+                "tutor": tutor.tutor,
+                "class": tutor,
+            }
+        else:
+            messages.error(self.request, "You don't have access to this page")
+            return render(
+                self.request,
+                "404.html",
+            )
+        if self.request.path == reverse("tutor:tutor_dashboard"):
+            return render(self.request, "tutors/tutor_dashboard.html", context)
+        if self.request.path == reverse("tutor:tutor_course"):
+            return render(self.request, "tutors/tutor_courses.html", context)
+        if self.request.path == reverse("tutor:tutor_task"):
+            return render(self.request, "tutors/tutor_task.html", context)
