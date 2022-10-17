@@ -32,3 +32,4 @@ class UserAdmin(auth_admin.UserAdmin):
     )
     list_display = ["username", "first_name", "is_superuser", "is_staff"]
     search_fields = ["first_name", "last_name", "email"]
+    readonly_fields = ["is_new"]

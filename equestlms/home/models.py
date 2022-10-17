@@ -56,6 +56,7 @@ class CustomUser(TimeBasedModel, AbstractUser):
     EMAIL_FIELD = "email"
     REQUIRED_FIELDS = ["email"]
 
+    is_new = models.BooleanField(default=True)
     email = models.EmailField(verbose_name="email address", unique=True)
     mobile_no = models.CharField(max_length=20, null=True, blank=True)
     profile_pic = ResizedImageField(

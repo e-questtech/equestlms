@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.views import View, generic
 
-from course.models import Course, StudentsInTutorCourse
+from course.models import ClassRoom, Course
 
 
 class TutorListView(generic.ListView):
@@ -17,9 +17,7 @@ class TutorDashboardView(View, LoginRequiredMixin):
     def get(self, request, **args):
 
         if self.request.user.is_staff:
-            tutor = get_object_or_404(
-                StudentsInTutorCourse, tutor_id=self.request.user.id
-            )
+            tutor = get_object_or_404(ClassRoom, tutor_id=self.request.user.id)
             context = {
                 "tutor": tutor.tutor,
                 "class": tutor,

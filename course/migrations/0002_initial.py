@@ -18,17 +18,17 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.AddField(
-            model_name='studentsintutorcourse',
+            model_name='classroom',
             name='student',
             field=models.ManyToManyField(blank=True, related_name='student_tutor_course', to='student.Student'),
         ),
         migrations.AddField(
-            model_name='studentsintutorcourse',
+            model_name='classroom',
             name='tasks',
             field=models.ManyToManyField(related_name='course_tasks', to='task.Task'),
         ),
         migrations.AddField(
-            model_name='studentsintutorcourse',
+            model_name='classroom',
             name='tutor',
             field=auto_prefetch.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='student_tutor_course', to='tutor.tutor'),
         ),
@@ -38,7 +38,7 @@ class Migration(migrations.Migration):
             field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, related_name='course_tutor', to='tutor.tutor'),
         ),
         migrations.AlterUniqueTogether(
-            name='studentsintutorcourse',
+            name='classroom',
             unique_together={('tutor', 'course')},
         ),
     ]

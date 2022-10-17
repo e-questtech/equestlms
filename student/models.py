@@ -13,7 +13,7 @@ class Student(TimeBasedModel):
     user = auto_prefetch.OneToOneField(
         CustomUser, on_delete=models.CASCADE, primary_key=True, related_name="Student"
     )
-    birthday = models.DateField()
+    birthday = models.DateField(null=True, blank=True)
     is_enrolled = models.BooleanField(default=False)
     course = models.ManyToManyField("course.Course", blank=True)
 
@@ -28,5 +28,5 @@ class Student(TimeBasedModel):
 
     #     super().save()
     #     if self.course is not None:
-    #         StudentsInTutorCourse.objects.get(
+    #         ClassRoom.objects.get(
     #             course_id=1).student.add(self.user)
