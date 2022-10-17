@@ -30,36 +30,39 @@
 		<div class="row">
 			<div class="col-lg-9 col-md-12">
 
-				<!-- Blog Post -->
+				<!-- Video (blog styling used for videos) -->
+				{% for video in video_list  %}
 				<div class="blog">
 					<div class="blog-image">
 						<a href="blog-details.html"><img class="img-fluid"
-								src="{% static 'img/blog/blog-05.jpg' %}"
+								src="{{video.alt_image.url}}"
 								alt="Post Image"></a>
 					</div>
 					<div class="blog-info clearfix">
 						<div class="post-left">
 							<ul>
 								<li>
-									<div class="post-author">
+									<!-- <div class="post-author">
 										<a href="instructor-profile.html"><img
 												src="{% static 'img/user/user.jpg' %}"
 												alt="Post Author"> <span>Ruby Perrin</span></a>
-									</div>
+									</div> -->
 								</li>
 								<li><img class="img-fluid"
 										src="{% static 'img/icon/icon-22.svg' %}"
-										alt="">April 20, 2022</li>
+										alt="">{{video.created_at}}</li>
 								<li><img class="img-fluid"
 										src="{% static 'img/icon/icon-23.svg' %}"
-										alt="">Programming, Web Design</li>
+										alt="">Tutorial</li>
 							</ul>
 						</div>
 					</div>
-					<h3 class="blog-title"><a href="blog-details.html">Learn Webs
-							Applications Development from Experts</a></h3>
+					<h3 class="blog-title"><a href='{{video.url}}'>{{ video.title }}</a>
+					</h3>
 				</div>
-				<!-- /Blog Post -->
+				{% endfor %}
+				<!-- /Video  -->
+
 				<!-- Blog pagination -->
 				<div class="row">
 					<div class="col-md-12">
@@ -125,60 +128,26 @@
 					</div>
 					<div class="card-body">
 						<ul class="latest-posts">
+							{% for video in  latest_videos %}
 							<li>
 								<div class="post-thumb">
 									<a href="blog-details.html">
 										<img class="img-fluid"
-											src="{% static 'img/blog/blog-01.jpg' %}"
+											src="{{video.alt_image.url}}"
 											alt="">
 									</a>
 								</div>
 								<div class="post-info">
 									<h4>
-										<a href="blog-details.html">Learn Webs Applications
-											Development from Experts</a>
+										<a href="{{video.url}}">{{ video.title }}</a>
 									</h4>
 									<p><img class="img-fluid"
 											src="{% static 'img/icon/icon-22.svg' %}"
-											alt="">Jun 14, 2022</p>
+											alt="">{{ video.created_at }}</p>
 								</div>
 							</li>
-							<li>
-								<div class="post-thumb">
-									<a href="blog-details.html">
-										<img class="img-fluid"
-											src="{% static 'img/blog/blog-02.jpg' %}"
-											alt="">
-									</a>
-								</div>
-								<div class="post-info">
-									<h4>
-										<a href="blog-details.html">Expand Your Career Opportunities
-											With Python</a>
-									</h4>
-									<p><img class="img-fluid"
-											src="{% static 'img/icon/icon-22.svg' %}"
-											alt=""> 3 Dec 2019</p>
-								</div>
-							</li>
-							<li>
-								<div class="post-thumb">
-									<a href="blog-details.html">
-										<img class="img-fluid"
-											src="{% static 'img/blog/blog-03.jpg' %}"
-											alt="">
-									</a>
-								</div>
-								<div class="post-info">
-									<h4>
-										<a href="blog-details.html">Complete PHP Programming Career
-											Guideline</a>
-									</h4>
-									<p><img class="img-fluid"
-											src="{% static 'img/icon/icon-22.svg' %}"
-											alt=""> 3 Dec 2019</p>
-								</div>
-							</li>
+							{% endfor %}
+
 						</ul>
 					</div>
 				</div>
