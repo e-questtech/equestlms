@@ -37,7 +37,7 @@
                         <a href="instructor-profile.html"><img src="{% static 'img/user/user.jpg' %}" alt="Post Author"> <span>{{ object.author.username}}</span></a>
                     </div>
                 </li>
-                <li><img class="img-fluid" src="{% static 'img/icon/icon-22.svg' %}" alt="">{{ object.date_created|date:'Y m D' }}</li>
+                <li><img class="img-fluid" src="{% static 'img/icon/icon-22.svg' %}" alt="">{{ object.created_at|date:'Y m D' }}</li>
 
                 <li><img class="img-fluid" src="{% static 'img/icon/icon-23.svg' %}" alt="">
                     {% for tag in object.tags.all %}

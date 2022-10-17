@@ -33,7 +33,7 @@
 
 							<div class="blog">
 								<div class="blog-image">
-									<a href="{% url 'blog:blog_detail' blogs.pk %}"><img class="img-fluid" src="{{ blogs.image.url}}" alt="Post Image"></a>
+									<a href="{% url 'blog:blog_detail' blogs.slug %}"><img class="img-fluid" src="{{ blogs.image.url}}" alt="Post Image"></a>
 								</div>
 								<div class="blog-info clearfix">
 									<div class="post-left">
@@ -43,7 +43,7 @@
 													<a href="instructor-profile.html"><img src="{% static 'img/user/user.jpg' %}" alt="Post Author"> <span>{{ blogs.author.username}}</span></a>
 												</div>
 											</li>
-											<li><img class="img-fluid" src="{% static 'img/icon/icon-22.svg' %}" alt="">{{ blogs.date_created|date:'Y m D' }}</li>
+											<li><img class="img-fluid" src="{% static 'img/icon/icon-22.svg' %}" alt="">{{ blogs.created_at|date:'Y m D' }}</li>
 
 											<li><img class="img-fluid" src="{% static 'img/icon/icon-23.svg' %}" alt="">
 												{% for tag in blogs.tags.all %}
@@ -58,10 +58,10 @@
 										</ul>
 									</div>
 								</div>
-								<h3 class="blog-title"><a href="{% url 'blog:blog_detail' blogs.pk %}">{{ blogs.title}}</a></h3>
+								<h3 class="blog-title"><a href="{% url 'blog:blog_detail' blogs.slug %}">{{ blogs.title}}</a></h3>
 								<div class="blog-content blog-read">
 									<p>{{blogs.description|truncatewords:50}} </p>
-									<a href="{% url 'blog:blog_detail' blogs.pk %}" class="read-more btn btn-primary">Read More</a>
+									<a href="{% url 'blog:blog_detail' blogs.slug %}" class="read-more btn btn-primary">Read More</a>
 								</div>
 							</div>
 
@@ -157,15 +157,15 @@
 
 										<li>
 											<div class="post-thumb">
-												<a href="{% url 'blog:blog_detail' blog.pk %}">
+												<a href="{% url 'blog:blog_detail' blog.slug %}">
 													<img class="img-fluid" src="{{ blog.image.url}}" alt="">
 												</a>
 											</div>
 											<div class="post-info">
 												<h4>
-													<a href="{% url 'blog:blog_detail' blog.pk %}">{{ blog.title}}</a>
+													<a href="{% url 'blog:blog_detail' blog.slug %}">{{ blog.title}}</a>
 												</h4>
-												<p><img class="img-fluid" src="{% static 'img/icon/icon-22.svg' %}" alt=""> {{ blog.date_created|date:'Y m D'}}</p>
+												<p><img class="img-fluid" src="{% static 'img/icon/icon-22.svg' %}" alt=""> {{ blog.created_at|date:'Y m D'}}</p>
 											</div>
 										</li>
 										{% endfor %}
@@ -182,7 +182,7 @@
 								<div class="card-body">
 									<ul class="categories">
 
-										{% for categories in cats %}
+										{% for categories in category %}
 										<li><a href="javascript:void(0);"><i class="fas fa-angle-right"></i> {{categories.name }}</a></li>
 										{% endfor %}
 										<!-- <li><a href="javascript:void(0);"><i class="fas fa-angle-right"></i> Courses </a></li>
