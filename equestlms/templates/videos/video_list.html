@@ -34,20 +34,32 @@
 				{% for video in video_list  %}
 				<div class="blog">
 					<div class="blog-image">
-						<a href="blog-details.html"><img class="img-fluid"
-								src="{{video.alt_image.url}}"
-								alt="Post Image"></a>
+						<iframe width="100%"
+							height="490"
+							src="https://www.youtube.com/embed/{{ video.url }}"
+							title="{{video.title}}"
+							frameborder="0"
+							allow="accelerometer;
+						autoplay;
+						clipboard-write;
+						encrypted-media;
+						gyroscope; picture-in-picture"
+							allowfullscreen></iframe>
+
+						<br>
+						<hr>
 					</div>
+					<h3 class="blog-title"><a href='{{video.url}}'>{{ video.title }}</a> </h3>
 					<div class="blog-info clearfix">
 						<div class="post-left">
 							<ul>
-								<li>
-									<!-- <div class="post-author">
+								<!-- <li>
+									<div class="post-author">
 										<a href="instructor-profile.html"><img
 												src="{% static 'img/user/user.jpg' %}"
 												alt="Post Author"> <span>Ruby Perrin</span></a>
-									</div> -->
-								</li>
+									</div>
+								</li> -->
 								<li><img class="img-fluid"
 										src="{% static 'img/icon/icon-22.svg' %}"
 										alt="">{{video.created_at}}</li>
@@ -57,49 +69,46 @@
 							</ul>
 						</div>
 					</div>
-					<h3 class="blog-title"><a href='{{video.url}}'>{{ video.title }}</a>
-					</h3>
+					
 				</div>
 				{% endfor %}
 				<!-- /Video  -->
 
-				<!-- Blog pagination -->
+				<!-- Video pagination -->
+
 				<div class="row">
 					<div class="col-md-12">
-						<ul class="pagination lms-page">
+						<ul class="pagination lms-page lms-pagination">
+							{% if page_obj.has_previous %}
 							<li class="page-item prev">
 								<a class="page-link"
-									href="javascript:void(0);"
+									href="?page={{ page_obj.previous_page_number }}"
 									tabindex="-1"><i class="fas fa-angle-left"></i></a>
 							</li>
+							{% endif %}
+							{% for i in paginator.page_range %}
+
+							{% if page_obj.number == i %}
 							<li class="page-item first-page active">
+								{% else %}
+							<li class="page-item first-page">
+								{% endif %}
 								<a class="page-link"
-									href="javascript:void(0);">1</a>
+									href="?page={{ i }}">{{ i }}</a>
 							</li>
-							<li class="page-item">
-								<a class="page-link"
-									href="javascript:void(0);">2</a>
-							</li>
-							<li class="page-item">
-								<a class="page-link"
-									href="javascript:void(0);">3</a>
-							</li>
-							<li class="page-item">
-								<a class="page-link"
-									href="javascript:void(0);">4</a>
-							</li>
-							<li class="page-item">
-								<a class="page-link"
-									href="javascript:void(0);">5</a>
-							</li>
+							{% endfor %}
+							{% if page_obj.has_previous %}
 							<li class="page-item next">
 								<a class="page-link"
-									href="javascript:void(0);"><i
+									href="?page={{ page_obj.next_page_number }}"><i
 										class="fas fa-angle-right"></i></a>
 							</li>
+							{% endif %}
 						</ul>
 					</div>
 				</div>
+				<!-- New Pagination -->
+
 				<!-- /Blog pagination -->
 			</div>
 			<!-- Blog Sidebar -->
