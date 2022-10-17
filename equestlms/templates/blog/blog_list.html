@@ -28,55 +28,76 @@
 						<div class="col-lg-9 col-md-12">
 
 							<!-- Blog Post -->
+
+							{% for blogs in blog %}
+
 							<div class="blog">
 								<div class="blog-image">
-									<a href="blog-details.html"><img class="img-fluid" src="{% static 'img/blog/blog-05.jpg' %}" alt="Post Image"></a>
+									<a href="{% url 'blog:blog_detail' blogs.slug %}"><img class="img-fluid" src="{{ blogs.image.url}}" alt="Post Image"></a>
 								</div>
 								<div class="blog-info clearfix">
 									<div class="post-left">
 										<ul>
 											<li>
 												<div class="post-author">
-													<a href="instructor-profile.html"><img src="{% static 'img/user/user.jpg' %}" alt="Post Author"> <span>Ruby Perrin</span></a>
+													<a href="instructor-profile.html"><img src="{% static 'img/user/user.jpg' %}" alt="Post Author"> <span>{{ blogs.author.username}}</span></a>
 												</div>
 											</li>
-											<li><img class="img-fluid" src="{% static 'img/icon/icon-22.svg' %}" alt="">April 20, 2022</li>
-											<li><img class="img-fluid" src="{% static 'img/icon/icon-23.svg' %}" alt="">Programming, Web Design</li>
+											<li><img class="img-fluid" src="{% static 'img/icon/icon-22.svg' %}" alt="">{{ blogs.created_at|date:'Y m D' }}</li>
+
+											<li><img class="img-fluid" src="{% static 'img/icon/icon-23.svg' %}" alt="">
+												{% for tag in blogs.tags.all %}
+												{{ tag }},
+												{% endfor %}
+											</li>
+
+
+
+
+
 										</ul>
 									</div>
 								</div>
-								<h3 class="blog-title"><a href="blog-details.html">Learn Webs Applications Development from Experts</a></h3>
+								<h3 class="blog-title"><a href="{% url 'blog:blog_detail' blogs.slug %}">{{ blogs.title}}</a></h3>
 								<div class="blog-content blog-read">
-									<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Phasellus hendrerit. Pellentesque aliquet nibh nec urna. In nisi neque, aliquet vel, dapibus id, mattis vel, nisi. Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo, eget blandit nunc tortor eu nibh. Nullam mollis. Ut justo. Suspendisse potenti. Sed egestas, ante et vulputate volutpat, eros pede […]</p>
-									<a href="blog-details.html" class="read-more btn btn-primary">Read More</a>
+									<p>{{blogs.description|truncatewords:50}} </p>
+									<a href="{% url 'blog:blog_detail' blogs.slug %}" class="read-more btn btn-primary">Read More</a>
 								</div>
 							</div>
+
+							{% endfor %}
 							<!-- /Blog Post -->
               							<!-- Blog pagination -->
+
+
 							<div class="row">
 								<div class="col-md-12">
 									<ul class="pagination lms-page">
-										<li class="page-item prev">
-											<a class="page-link" href="javascript:void(0);" tabindex="-1"><i class="fas fa-angle-left"></i></a>
-										</li>
-										<li class="page-item first-page active">
-											<a class="page-link" href="javascript:void(0);">1</a>
-										</li>
-										<li class="page-item">
-											<a class="page-link" href="javascript:void(0);">2</a>
-										</li>
-										<li class="page-item">
-											<a class="page-link" href="javascript:void(0);">3</a>
-										</li>
-										<li class="page-item">
-											<a class="page-link" href="javascript:void(0);">4</a>
-										</li>
-										<li class="page-item">
-											<a class="page-link" href="javascript:void(0);">5</a>
-										</li>
-										<li class="page-item next">
-											<a class="page-link" href="javascript:void(0);"><i class="fas fa-angle-right"></i></a>
-										</li>
+										{% if page_obj.has_previous %}
+											<li class="page-item prev">
+												<a class="page-link" href="?page={{ page_obj.previous_page_number }}" tabindex="-1"><i class="fas fa-angle-left"></i></a>
+											</li>
+										{% else %}
+											<li class="page-item prev disabled">
+												<a class="page-link disabled" href="" tabindex="-1"><i class="fas fa-angle-left"></i></a>
+											</li>
+										{%endif %}
+
+										{% for i in page_obj.paginator.page_range %}
+
+											<li class="page-item first-page {% if page_obj.number == i %} active {% endif %}">
+												<a class="page-link" href="?page={{ i }}">{{ i }}</a>
+											</li>
+										{% endfor %}
+										{% if page_obj.has_next %}
+											<li class="page-item next">
+												<a class="page-link" href="?page={{ page_obj.next_page_number }}"><i class="fas fa-angle-right"></i></a>
+											</li>
+										{% else %}
+											<li class="page-item next disabled">
+												<a class="page-link " href=""><i class="fas fa-angle-right"></i></a>
+											</li>
+										{% endif %}
 									</ul>
 								</div>
 							</div>
@@ -90,8 +111,8 @@
 								<div class="card-body">
 									<form class="search-form">
 										<div class="input-group">
-											<input type="text" placeholder="Search..." class="form-control">
-											<button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+											<input type="text" placeholder="Search..." class="form-control" name="q">
+											<span  class="btn btn-primary"><i class="fa fa-search"></i></span>
 										</div>
 									</form>
 								</div>
@@ -105,7 +126,7 @@
 								</div>
 								<div class="card-body">
 									<ul class="latest-posts">
-										<li>
+										<!-- <li>
 											<div class="post-thumb">
 												<a href="blog-details.html">
 													<img class="img-fluid" src="{% static 'img/blog/blog-01.jpg' %}" alt="">
@@ -117,8 +138,8 @@
 												</h4>
 												<p><img class="img-fluid" src="{% static 'img/icon/icon-22.svg' %}" alt="">Jun 14, 2022</p>
 											</div>
-										</li>
-										<li>
+										</li> -->
+										<!-- <li>
 											<div class="post-thumb">
 												<a href="blog-details.html">
 													<img class="img-fluid" src="{% static 'img/blog/blog-02.jpg' %}" alt="">
@@ -130,20 +151,24 @@
 												</h4>
 												<p><img class="img-fluid" src="{% static 'img/icon/icon-22.svg' %}" alt=""> 3 Dec 2019</p>
 											</div>
-										</li>
+										</li> -->
+
+										{% for blog in recent %}
+
 										<li>
 											<div class="post-thumb">
-												<a href="blog-details.html">
-													<img class="img-fluid" src="{% static 'img/blog/blog-03.jpg' %}" alt="">
+												<a href="{% url 'blog:blog_detail' blog.slug %}">
+													<img class="img-fluid" src="{{ blog.image.url}}" alt="">
 												</a>
 											</div>
 											<div class="post-info">
 												<h4>
-													<a href="blog-details.html">Complete PHP Programming Career Guideline</a>
+													<a href="{% url 'blog:blog_detail' blog.slug %}">{{ blog.title}}</a>
 												</h4>
-												<p><img class="img-fluid" src="{% static 'img/icon/icon-22.svg' %}" alt=""> 3 Dec 2019</p>
+												<p><img class="img-fluid" src="{% static 'img/icon/icon-22.svg' %}" alt=""> {{ blog.created_at|date:'Y m D'}}</p>
 											</div>
 										</li>
+										{% endfor %}
 									</ul>
 								</div>
 							</div>
@@ -156,12 +181,15 @@
 								</div>
 								<div class="card-body">
 									<ul class="categories">
-										<li><a href="javascript:void(0);"><i class="fas fa-angle-right"></i> Business </a></li>
-										<li><a href="javascript:void(0);"><i class="fas fa-angle-right"></i> Courses </a></li>
+
+										{% for categories in category %}
+										<li><a href="javascript:void(0);"><i class="fas fa-angle-right"></i> {{categories.name }}</a></li>
+										{% endfor %}
+										<!-- <li><a href="javascript:void(0);"><i class="fas fa-angle-right"></i> Courses </a></li>
 										<li><a href="javascript:void(0);"><i class="fas fa-angle-right"></i> Education </a></li>
 										<li><a href="javascript:void(0);"><i class="fas fa-angle-right"></i> Graphics Design </a></li>
 										<li><a href="javascript:void(0);"><i class="fas fa-angle-right"></i> Programming </a></li>
-										<li><a href="javascript:void(0);"><i class="fas fa-angle-right"></i> Web Design </a></li>
+										<li><a href="javascript:void(0);"><i class="fas fa-angle-right"></i> Web Design </a></li> -->
 									</ul>
 								</div>
 							</div>
@@ -189,12 +217,16 @@
 								</div>
 								<div class="card-body">
 									<ul class="tags">
-										<li><a href="javascript:void(0);" class="tag">HTML</a></li>
-										<li><a href="javascript:void(0);" class="tag">Java Script</a></li>
+
+										{% for tag in tags %}
+
+										<li><a href="javascript:void(0);" class="tag">{{tag.name}}</a></li>
+										{% endfor %}
+										<!-- <li><a href="javascript:void(0);" class="tag">Java Script</a></li>
 										<li><a href="javascript:void(0);" class="tag">Css</a></li>
 										<li><a href="javascript:void(0);" class="tag">Jquery</a></li>
 										<li><a href="javascript:void(0);" class="tag">Java</a></li>
-										<li><a href="javascript:void(0);" class="tag">React</a></li>
+										<li><a href="javascript:void(0);" class="tag">React</a></li> -->
 									</ul>
 								</div>
 							</div>
