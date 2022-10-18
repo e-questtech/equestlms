@@ -34,19 +34,27 @@
 							<div class="settings-widget dash-profile mb-3">
 								<div class="settings-menu p-0">
 									<div class="profile-bg">
+                    {% if user.is_staff %}
+										<h5>Staff</h5>
+                    {% else %}
 										<h5>Student</h5>
+                    {% endif %}
 										<img src="{% static 'img/profile-bg.jpg' %}" alt="">
 										<div class="profile-img">
-											<a href="student-profile.html"><img src="{% static 'img/user/user11.jpg' %}" alt=""></a>
+											<a href="#"><img src="{% static 'img/user/user11.jpg' %}" alt=""></a>
 										</div>
 									</div>
 									<div class="profile-group">
 										<div class="profile-name text-center">
 											<h4><a href="#">{{ user }}</a></h4>
-											<p>Student</p>
-										</div>
+                      {% if user.is_staff %}
+                      <p>Staff</p>
+                      {% else %}
+                      <p>Student</p>
+                      {% endif %}
+                    </div>
 										<div class="go-dashboard text-center">
-											<a href="deposit-student-dashboard.html" class="btn btn-primary">Go to Dashboard</a>
+											<a href="{{ user.get_absolute_url }}" class="btn btn-primary">Go to Dashboard</a>
 										</div>
 									</div>
 								</div>
@@ -55,8 +63,6 @@
 								<div class="settings-menu">
 									<h3>ACCOUNT SETTINGS</h3>
 									<ul>
-
-                    {% if request.path == user.get_absolute_url %}
 										<li class="nav-item active">
 											<a href="{{ user.get_absolute_url }}" class="nav-link">
 												<i class="feather-settings"></i> Edit Profile
@@ -67,23 +73,9 @@
 												<i class="feather-user"></i> Security
 											</a>
 										</li>
-                    {% endif %}
-                    {% if request.path == '/accounts/password/change/' %}
 										<li class="nav-item">
-											<a href="{{ user.get_absolute_url }}" class="nav-link">
-												<i class="feather-settings"></i> Edit Profile
-											</a>
-										</li>
-                    <li class="nav-item active">
-											<a href="{% url 'account_change_password' %}" class="nav-link">
-												<i class="feather-user"></i> Security
-											</a>
-										</li>
-                    {% endif %}
-
-										<li class="nav-item">
-											<a href="login.html" class="nav-link">
-												<i class="{% url 'account_logout' %}"></i> Sign Out
+											<a href="{% url 'account_logout' %}" class="nav-link">
+												<i class="feather-power"></i> Sign Out
 											</a>
 										</li>
 									</ul>
@@ -119,75 +111,57 @@
 											<h4>Personal Details</h4>
 											<p>Edit your personal information and address.</p>
 										</div>
-										<form action="#">
+										<form method="POST" action="">
 											<div class="row">
 												<div class="col-lg-6">
 													<div class="form-group">
 														<label class="form-control-label">First Name</label>
-														<input type="text" class="form-control" placeholder="Enter your first Name">
+														<input type="text" class="form-control" placeholder="Enter your first Name"
+                            id="form.first_name.id_for_label" name="{{form.first_name.name}}" required value="{{form.first_name.value|default:''}}">
+
 													</div>
 												</div>
 												<div class="col-lg-6">
 													<div class="form-group">
 														<label class="form-control-label">Last Name</label>
-														<input type="text" class="form-control" placeholder="Enter your last Name">
+														<input type="text" class="form-control" placeholder="Enter your last Name"
+                            id="form.last_name.id_for_label" name="{{form.last_name.name}}" required value="{{form.last_name.value|default:''}}">
 													</div>
 												</div>
 												<div class="col-lg-6">
 													<div class="form-group">
 														<label class="form-control-label">Phone</label>
-														<input type="text" class="form-control" placeholder="Enter your Phone">
+														<input type="text" class="form-control" placeholder="Enter your Phone"
+                            id="form.mobile_no.id_for_label" name="{{form.mobile_no.name}}" required value="{{form.mobile_no.value|default:''}}">
 													</div>
 												</div>
 												<div class="col-lg-6">
 													<div class="form-group">
 														<label class="form-control-label">Email</label>
-														<input type="text" class="form-control" placeholder="Enter your Email">
+														<input type="text" class="form-control" readonly placeholder="Enter your Email"
+                            id="form.email.id_for_label" name="{{form.email.name}}" required value="{{form.email.value|default:''}}">
 													</div>
 												</div>
 												<div class="col-lg-6">
 													<div class="form-group">
 														<label class="form-control-label">Birthday</label>
-														<input type="text" class="form-control" placeholder="Birth of Date">
+														<input class="form-control" type="date"
+                            id="form.birthday.id_for_label" name="{{form.birthday.name}}" required value="{{form.birthday.value|default:''}}">
 													</div>
 												</div>
 												<div class="col-lg-6">
 													<div class="form-group">
-														<label  class="form-label">Country</label>
-														<select class="form-select select country-select"  name="sellist1">
-															<option>Select country</option>
-															<option>India</option>
-															<option>America</option>
-															<option>London</option>
+														<label  class="form-label">Gender</label>
+														<select id="form.gender.id_for_label" class="form-select select country-select"  name="{{ form.gender.name}}">
+															{% for x,y in form.fields.gender.choices %}
+															<option value="{{ x }}"{% if form.gender.value == x %} selected{% endif %}>{{ y }}</option>
+														 	{% endfor %}
 														</select>
 													</div>
 												</div>
-												<div class="col-lg-6">
-													<div class="form-group">
-														<label class="form-control-label">Address Line 1</label>
-														<input type="text" class="form-control" placeholder="Address">
-													</div>
-												</div>
-												<div class="col-lg-6">
-													<div class="form-group">
-														<label class="form-control-label">Address Line 2 (Optional)</label>
-														<input type="text" class="form-control" placeholder="Address">
-													</div>
-												</div>
-												<div class="col-lg-6">
-													<div class="form-group">
-														<label class="form-control-label">City</label>
-														<input type="text" class="form-control" placeholder="Enter your City">
-													</div>
-												</div>
-												<div class="col-lg-6">
-													<div class="form-group">
-														<label class="form-control-label">ZipCode</label>
-														<input type="text" class="form-control" placeholder="Enter your Zipcode" >
-													</div>
-												</div>
+                        {% include '_partials/_form_errors.html' %}
 												<div class="update-profile">
-													<button type="button" class="btn btn-primary">Update Profile</button>
+													<button type="submit" class="btn btn-primary">Update Profile</button>
 												</div>
 											</div>
 										</form>
