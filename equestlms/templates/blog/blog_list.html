@@ -60,7 +60,7 @@
 								</div>
 								<h3 class="blog-title"><a href="{% url 'blog:blog_detail' blogs.slug %}">{{ blogs.title}}</a></h3>
 								<div class="blog-content blog-read">
-									<p>{{blogs.description|truncatewords:50}} </p>
+									<p>{{blogs.preview}} </p>
 									<a href="{% url 'blog:blog_detail' blogs.slug %}" class="read-more btn btn-primary">Read More</a>
 								</div>
 							</div>
@@ -126,33 +126,6 @@
 								</div>
 								<div class="card-body">
 									<ul class="latest-posts">
-										<!-- <li>
-											<div class="post-thumb">
-												<a href="blog-details.html">
-													<img class="img-fluid" src="{% static 'img/blog/blog-01.jpg' %}" alt="">
-												</a>
-											</div>
-											<div class="post-info">
-												<h4>
-													<a href="blog-details.html">Learn Webs Applications Development from Experts</a>
-												</h4>
-												<p><img class="img-fluid" src="{% static 'img/icon/icon-22.svg' %}" alt="">Jun 14, 2022</p>
-											</div>
-										</li> -->
-										<!-- <li>
-											<div class="post-thumb">
-												<a href="blog-details.html">
-													<img class="img-fluid" src="{% static 'img/blog/blog-02.jpg' %}" alt="">
-												</a>
-											</div>
-											<div class="post-info">
-												<h4>
-													<a href="blog-details.html">Expand Your Career Opportunities With Python</a>
-												</h4>
-												<p><img class="img-fluid" src="{% static 'img/icon/icon-22.svg' %}" alt=""> 3 Dec 2019</p>
-											</div>
-										</li> -->
-
 										{% for blog in recent %}
 
 										<li>
@@ -195,21 +168,6 @@
 							</div>
 							<!-- /Categories -->
 
-							<!-- Archives Categories -->
-							<div class="card category-widget blog-widget">
-								<div class="card-header">
-									<h4 class="card-title">Archives</h4>
-								</div>
-								<div class="card-body">
-									<ul class="categories">
-										<li><a href="javascript:void(0);"><i class="fas fa-angle-right"></i> January 2022 </a></li>
-										<li><a href="javascript:void(0);"><i class="fas fa-angle-right"></i> February 2022 </a></li>
-										<li><a href="javascript:void(0);"><i class="fas fa-angle-right"></i> April 2022 </a></li>
-									</ul>
-								</div>
-							</div>
-							<!-- /Archives Categories -->
-
 							<!-- Tags -->
 							<div class="card tags-widget blog-widget tags-card">
 								<div class="card-header">
@@ -242,25 +200,25 @@
 
 {% block bottom_js %}
 		<!-- jQuery -->
-		<script src="assets/js/jquery-3.6.0.min.js"></script>
+		<script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
 
 		<!-- Bootstrap Core JS -->
-		<script src="assets/js/bootstrap.bundle.min.js"></script>
+		<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
 
 		<!-- counterup JS -->
-		<script src="assets/js/jquery.waypoints.js"></script>
-		<script src="assets/js/jquery.counterup.min.js"></script>
+		<script src="{% static 'js/jquery.waypoints.js' %}"></script>
+		<script src="{% static 'js/jquery.counterup.min.js' %}"></script>
 
 		<!-- Owl Carousel -->
-		<script src="assets/js/owl.carousel.min.js"></script>
+		<script src="{% static 'js/owl.carousel.min.js' %}"></script>
 
 		<!-- Slick Slider -->
-		<script src="assets/plugins/slick/slick.js"></script>
+		<script src="{% static 'plugins/slick/slick.js' %}"></script>
 
 		<!-- Sticky Sidebar JS -->
-        <script src="assets/plugins/theia-sticky-sidebar/ResizeSensor.js"></script>
-        <script src="assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
+        <script src="{% static 'plugins/theia-sticky-sidebar/ResizeSensor.js' %}"></script>
+        <script src="{% static 'plugins/theia-sticky-sidebar/theia-sticky-sidebar.js' %}"></script>
 
 		<!-- Custom JS -->
-		<script src="assets/js/script.js"></script>
+		<script src="{% static 'js/script.js' %}"></script>
 {% endblock bottom_js %}

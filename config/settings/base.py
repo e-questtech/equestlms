@@ -5,6 +5,8 @@ from pathlib import Path
 
 import environ
 
+from config.settings.packages.resized_image_field import *  # noqa
+
 ROOT_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
 # equestlms/
 APPS_DIR = ROOT_DIR / "equestlms"
