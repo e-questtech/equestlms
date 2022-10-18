@@ -24,7 +24,7 @@
 											<p>Instructor</p>
 										</div>
 										<div class="go-dashboard text-center">
-											<a href="add-course.html" class="btn btn-primary">Create New Task</a>
+											<a href="{% url 'admin:task_task_add' %}" class="btn btn-primary">Create New Task</a>
 										</div>
 									</div>
 								</div>
@@ -34,7 +34,7 @@
 									<h3>DASHBOARD</h3>
 									<ul>
 										<li class="nav-item active">
-											<a href="instructor-dashboard.html" class="nav-link">
+											<a href="{{ user.get_absolute_url }}" class="nav-link">
 												<i class="feather-home"></i> My Dashboard
 											</a>
 										</li>
@@ -54,7 +54,7 @@
 											</a>
 										</li>
 										<li class="nav-item">
-											<a href="instructor-student-grid.html" class="nav-link">
+											<a href="{% url 'tutor:tutor_students' %}" class="nav-link">
 												<i class="feather-users"></i> Students
 											</a>
 										</li>
@@ -137,7 +137,6 @@
 						<!-- /Instructor Dashboard -->
 
 					{% endblock tutor_dashboard_content %}
-
 
 					</div>
 				</div>

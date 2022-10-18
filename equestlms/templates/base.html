@@ -27,14 +27,15 @@
 		<!-- Main Wrapper -->
 		<div class="main-wrapper">
 
-      {% include '_partials/_messages.html' %}
 
       {% block navbar %}
       {% if not request.path == "/accounts/signup/" and not request.path == "/accounts/login/" and not request.path == "/accounts/confirm-email/" %}
       {% include './_partials/_navbar.html' %}
       {% endif %}
       {% endblock navbar %}
-
+      <div>
+      {% include '_partials/_messages.html' %}
+      </div>
       {% block body %}
 
       {% endblock body %}

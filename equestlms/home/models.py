@@ -5,6 +5,7 @@ from django.db import models
 from django.urls import reverse
 from django_resized import ResizedImageField
 
+from equestlms.utils.choices import GENDER_CHOICES
 from equestlms.utils.media import MediaHelper
 from equestlms.utils.models import TimeBasedModel
 
@@ -64,6 +65,10 @@ class CustomUser(TimeBasedModel, AbstractUser):
         blank=True,
         verbose_name="Profile Picture",
         null=True,
+    )
+    birthday = models.DateField(null=True, blank=True)
+    gender = models.CharField(
+        choices=GENDER_CHOICES, max_length=20, null=True, blank=True
     )
 
     objects = UserManager()

@@ -17,9 +17,10 @@ def delete_student_if_made_staff(sender, instance, **kwargs):
     if instance.is_staff is True and instance.is_superuser is False:
         try:
             tutor = get_object_or_404(Tutor, user_id=instance.pk)
-            is_student = get_object_or_404(Student, user_id=tutor.user_id)
+            # instance
+            is_student = Student.objects.filter(user_id=tutor.user_id)
             if is_student:
-                Student.objects.filter(user_id=is_student.user_id).delete()
+                is_student.delete()
         except IntegrityError:
             pass
 

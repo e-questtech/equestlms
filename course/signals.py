@@ -23,8 +23,9 @@ def update_course_assignment(sender, instance, **kwargs):
     """
     Executed when a task is saved
     """
-    course = get_object_or_404(ClassRoom, course_id=instance.course.id)
-    course.tasks.add(get_object_or_404(Task, id=instance.id))
+    classroom = ClassRoom.objects.filter(course_id=instance.course.id)
+    for course in classroom:
+        course.tasks.add(get_object_or_404(Task, id=instance.id))
 
 
 @receiver(post_save, sender=Student)

@@ -3,7 +3,12 @@ TASKCHOICES = (
     ("Done", "Done"),
 )
 
-GENDER_CHOICES = (("Male", "Male"), ("Female", "Female"))
+GENDER_CHOICES = (
+    ("", "Select"),
+    ("Male", "Male"),
+    ("Female", "Female"),
+    ("Prefer Not To Say", "Prefer Not To Say"),
+)
 
 COURSE_LEVEL = (
     ("Beginner", "Beginner"),

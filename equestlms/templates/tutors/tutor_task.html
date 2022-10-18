@@ -2,8 +2,6 @@
 {% load static %}
 {% block tutor_dashboard_content %}
 			<!--Dashbord Student -->
-
-
 						<!-- Profile Details -->
 						<div class="col-xl-9 col-lg-8  col-md-12">
 							<div class="settings-widget">
@@ -26,12 +24,23 @@
 												  </tr>
 												</thead>
 												<tbody>
+
+                          {% for task in class.tasks.all %}
+
 													<tr>
-														<td><a href="javascript:;">1C6A5M4YPV39</a></td>
-														<td>Withdraw Via Bank withdrawal </td>
-														<td><span class="text-danger">- $10.00</span></td>
-														<td>$10.00</td>
+														<td><a href="{% url 'admin:task_task_change' task.id %}">{{ task.course }}</a></td>
+														<td>{{ task.title }}</td>
+														<td>{{ task.due_date }}</td>
+                            {% if task.status == "Pending" %}
+                            <td><span class="badge info-high">Pending</span>
+                            </td>
+                            {% else %}
+                            <td><span class="badge info-low">Done</span>
+                            {% endif %}
+                            <td style="padding:0px; border:0px;"><a href="{% url 'admin:task_task_delete' task.id %}" class=""><i class="feather-delete"></i></a></td>
+                            <td><a href="{% url 'admin:task_task_change' task.id %}" class="edit-btn-blk "><i class="feather-edit"></i></a></td>
 													</tr>
+                          {% endfor %}
 												</tbody>
 											  </table>
 											<!-- /Referred Users-->

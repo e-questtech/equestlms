@@ -97,7 +97,11 @@ class ClassRoom(TimeBasedModel):
         null=True,
         blank=True,
     )
-    tasks = models.ManyToManyField("task.Task", related_name="course_tasks")
+    tasks = models.ManyToManyField(
+        "task.Task",
+        related_name="course_tasks",
+        blank=True,
+    )
 
     class Meta:
         unique_together = ("tutor", "course")
