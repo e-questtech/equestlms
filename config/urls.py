@@ -17,7 +17,8 @@ urlpatterns = [
     # Blog
     path("blog/", include("blog.urls", namespace="blog")),
     path("videos/", include("videos.urls", namespace="videos")),
-    path("tutors/", include("tutor.urls", namespace="tutors")),
+    # Tutor
+    path("tutor/", include("tutor.urls", namespace="tutor")),
     # Your stuff: custom urls includes go here
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

@@ -1,11 +1,10 @@
-from django.contrib.auth import get_user_model
+from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse
-from django.utils.translation import gettext_lazy as _
-from django.views.generic import DetailView, RedirectView, TemplateView, UpdateView
+from django.views.generic import DetailView, TemplateView, UpdateView
 
-User = get_user_model()
+from equestlms.home.forms import ProfileUpdateForm
+from equestlms.home.models import CustomUser
 
 
 class IndexView(TemplateView):
@@ -14,40 +13,53 @@ class IndexView(TemplateView):
 
 class UserDetailView(LoginRequiredMixin, DetailView):
 
-    model = User
+    model = CustomUser
+    template_name = "home/user_detail.html"
+
+
+class ProfileUpdateView(LoginRequiredMixin, UpdateView):
+    template_name = "users/user_detail.html"
     slug_field = "username"
     slug_url_kwarg = "username"
-    template_name = "users/user_detail.html"
+    model = CustomUser
+    form_class = ProfileUpdateForm
+
+    def get_object(self, queryset=None):
+        return self.request.user
+
+    def get_success_url(self):
+        messages.success(self.request, "Profile updated successfully")
+        return reverse("home:profile", kwargs={"username": self.request.user.username})
 
 
 user_detail_view = UserDetailView.as_view()
 
 
-class UserUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+# class UserUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 
-    model = User
-    fields = ["first_name"]
-    success_message = _("Information successfully updated")
+#     model = CustomUser
+#     fields = ["first_name"]
+#     success_message = _("Information successfully updated")
 
-    def get_success_url(self):
-        assert (
-            self.request.user.is_authenticated
-        )  # for mypy to know that the user is authenticated
-        return self.request.user.get_absolute_url()
+#     def get_success_url(self):
+#         assert (
+#             self.request.user.is_authenticated
+#         )  # for mypy to know that the user is authenticated
+#         return self.request.user.get_absolute_url()
 
-    def get_object(self):
-        return self.request.user
-
-
-user_update_view = UserUpdateView.as_view()
+#     def get_object(self):
+#         return self.request.user
 
 
-class UserRedirectView(LoginRequiredMixin, RedirectView):
-
-    permanent = False
-
-    def get_redirect_url(self):
-        return reverse("users:detail", kwargs={"username": self.request.user.username})
+# user_update_view = UserUpdateView.as_view()
 
 
-user_redirect_view = UserRedirectView.as_view()
+# class UserRedirectView(LoginRequiredMixin, RedirectView):
+
+#     permanent = False
+
+#     def get_redirect_url(self):
+#         return reverse("users:detail", kwargs={"username": self.request.user.username})
+
+
+# user_redirect_view = UserRedirectView.as_view()

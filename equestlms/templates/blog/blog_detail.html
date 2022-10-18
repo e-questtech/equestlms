@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% load static %}
+{% block body %}
+<!-- Breadcrumb -->
+<div class="breadcrumb-bar">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 col-12">
+        <div class="breadcrumb-list">
+          <nav aria-label="breadcrumb" class="page-breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+              <li class="breadcrumb-item" aria-current="page">{{ request.META.HTTP_REFERRER }}</li>
+              <li class="breadcrumb-item" aria-current="page">{{ request.path }}</li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Breadcrumb -->
+<div class="container mb-5 p-5">
+    <div class="row">
+
+      <div class="col-md-8 ">
+        <div class="blog-image">
+            <img class="img-fluid" src="{{ object.image.url}}" alt="Post Image">
+        </div>
+      </div>
+      <div class="col-4 p-2">
+        <h3>{{ object.title }}</h3>
+        <div class="post-left">
+            <ul>
+                <li>
+                    <div class="post-author">
+                        <a href="instructor-profile.html"><img src="{% static 'img/user/user.jpg' %}" alt="Post Author"> <span>{{ object.author.username}}</span></a>
+                    </div>
+                </li>
+                <li><img class="img-fluid" src="{% static 'img/icon/icon-22.svg' %}" alt="">{{ object.created_at|date:'Y m D' }}</li>
+
+                <li><img class="img-fluid" src="{% static 'img/icon/icon-23.svg' %}" alt="">
+                    {% for tag in object.tags.all %}
+                    {{ tag }},
+                    {% endfor %}
+                </li>
+            </ul>
+        </div>
+        <hr>
+        <p>{{ object.description}}</p>
+      </div>
+    </div>
+  </div>
+
+{% endblock body %}
+
+{% block bottom_js %}
+<!-- jQuery -->
+<script src="assets/js/jquery-3.6.0.min.js"></script>
+
+<!-- Bootstrap Core JS -->
+<script src="assets/js/bootstrap.bundle.min.js"></script>
+
+<!-- counterup JS -->
+<script src="assets/js/jquery.waypoints.js"></script>
+<script src="assets/js/jquery.counterup.min.js"></script>
+
+<!-- Owl Carousel -->
+<script src="assets/js/owl.carousel.min.js"></script>
+
+<!-- Slick Slider -->
+<script src="assets/plugins/slick/slick.js"></script>
+
+<!-- Sticky Sidebar JS -->
+<script src="assets/plugins/theia-sticky-sidebar/ResizeSensor.js"></script>
+<script src="assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
+
+<!-- Custom JS -->
+<script src="assets/js/script.js"></script>
+{% endblock bottom_js %}
