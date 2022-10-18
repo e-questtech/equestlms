@@ -75,5 +75,5 @@ test:
 update:
 	pip install -r requirements-dev.txt
 
-activate:
-	source venv/bin/activate
+shell:
+	python manage.py shell

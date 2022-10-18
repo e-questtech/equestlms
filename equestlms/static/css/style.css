@@ -6721,8 +6721,8 @@ input[type=password]::-ms-clear
 .blog-image img {
 	display: block;
 	position: relative;
-	width: 100%;
-	height: auto;
+	width: 850px;
+	height: 300px;
 }
 .blog-image img {
     -webkit-transform: translateZ(0);
