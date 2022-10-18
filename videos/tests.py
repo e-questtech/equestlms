@@ -1,5 +1,5 @@
 from django.test import TestCase
-
+from django.urls import reverse
 from .models import Video
 
 
@@ -23,3 +23,21 @@ class VideoModelTest(TestCase):
         video = Video.objects.get(pk=1)
         self.assertEqual(video.__str__(), video.title)
         return super().setUpTestData()
+
+
+class VideoListViewTest(TestCase):
+    @classmethod
+    def setUpTestData(cls) -> None:
+        pass
+
+    def test_view_url_exist(self):
+        response = self.client.get('/videos/')
+        self.assertEqual(response.status_code, 200)
+
+    def test_view_url_accessible_by_name(self):
+        response = self.client.get(reverse('videos:video_list'))
+        self.assertEqual(response.status_code, 200)
+
+    def test_view_url_name_returns_desired_url(self):
+        url = reverse('videos:video_list')
+        self.assertEqual(url, '/videos/')
