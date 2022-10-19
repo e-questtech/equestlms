@@ -14,6 +14,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='blog',
             name='image',
-            field=django_resized.forms.ResizedImageField(crop=None, force_format=None, keep_meta=True, quality=-1, scale=None, size=[500, 300], upload_to='blog_img/'),
+            field=django_resized.forms.ResizedImageField(crop=None, force_format=None, keep_meta=True, quality=-1, size=[500, 300], upload_to='blog_img/'),
         ),
     ]

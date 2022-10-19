@@ -22,7 +22,6 @@ class Migration(migrations.Migration):
                 keep_meta=True,
                 null=True,
                 quality=-1,
-                scale=None,
                 size=[1920, 1080],
                 upload_to=equestlms.utils.media.MediaHelper.get_image_upload_path,
                 verbose_name="Profile Picture",
