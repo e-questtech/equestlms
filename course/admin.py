@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from course.models import Course, StudentsInTutorCourse
+from course.models import ClassRoom, Course
 
 
 @admin.register(Course)
@@ -16,8 +16,8 @@ class CourseAdmin(admin.ModelAdmin):
     search_fields = ["title", "price", "overview", "tutor"]
 
 
-@admin.register(StudentsInTutorCourse)
-class StudentInTutorCourseAdmin(admin.ModelAdmin):
+@admin.register(ClassRoom)
+class ClassRoomAdmin(admin.ModelAdmin):
     list_display = ["tutor", "course"]
     list_filter = ["tutor", "course"]
     ordering = [

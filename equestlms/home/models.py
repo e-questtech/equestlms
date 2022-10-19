@@ -5,6 +5,7 @@ from django.db import models
 from django.urls import reverse
 from django_resized import ResizedImageField
 
+from equestlms.utils.choices import GENDER_CHOICES
 from equestlms.utils.media import MediaHelper
 from equestlms.utils.models import TimeBasedModel
 
@@ -56,6 +57,7 @@ class CustomUser(TimeBasedModel, AbstractUser):
     EMAIL_FIELD = "email"
     REQUIRED_FIELDS = ["email"]
 
+    is_new = models.BooleanField(default=True)
     email = models.EmailField(verbose_name="email address", unique=True)
     mobile_no = models.CharField(max_length=20, null=True, blank=True)
     profile_pic = ResizedImageField(
@@ -63,6 +65,10 @@ class CustomUser(TimeBasedModel, AbstractUser):
         blank=True,
         verbose_name="Profile Picture",
         null=True,
+    )
+    birthday = models.DateField(null=True, blank=True)
+    gender = models.CharField(
+        choices=GENDER_CHOICES, max_length=20, null=True, blank=True
     )
 
     objects = UserManager()
@@ -83,4 +89,6 @@ class CustomUser(TimeBasedModel, AbstractUser):
         return f"{settings.STATIC_URL}img/equest_logo.png"
 
     def get_absolute_url(self):
+        if self.is_staff:
+            return reverse("tutor:tutor_dashboard")
         return reverse("home:profile", kwargs={"username": self.username})
