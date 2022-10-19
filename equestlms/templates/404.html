@@ -1,9 +1,29 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block title %}Page not found{% endblock %}
 
-{% block content %}
-<h1>Page not found</h1>
+{% block body %}
 
-<p>{% if exception %}{{ exception }}{% else %}This is not the page you were looking for.{% endif %}</p>
-{% endblock content %}
+
+    <body class="error-page">
+
+		<!-- Main Wrapper -->
+        <div class="main-wrapper" style="margin-top: 80vh;">
+
+			<div class="error-box" style="margin:40px">
+				<div class="error-logo">
+					<a href="index.html">
+						<img src="{% static 'img/equestlogo2.png' %}" class="img-fluid" alt="Logo">
+					</a>
+				</div>
+				<div class="error-box-img">
+					<img src="{% static 'img/error-01.png' %}" alt="" class="img-fluid" >
+				</div>
+				<h3 class="h2 mb-3"> Oh No! Error 404</h3>
+                <p>{% if exception %}{{ exception }}{% else %}This is not the page you were looking for.{% endif %}</p>
+				<p class="h4 font-weight-normal">This page you requested counld not found. May the force be with you!</p>
+				<a href="{% url 'home:index' %}" class="btn btn-primary">Back to Home</a>
+			</div>
+
+        </div>
+{% endblock body %}
