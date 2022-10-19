@@ -24,6 +24,7 @@ class UserAdmin(auth_admin.UserAdmin):
                     "email",
                     "gender",
                     "birthday",
+                    "profile_pic",
                 )
             },
         ),

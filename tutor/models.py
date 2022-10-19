@@ -12,7 +12,7 @@ class Tutor(TimeBasedModel):
     )
     bio = models.CharField(max_length=100)
     about = models.TextField()
-    courses = models.ManyToManyField(Course)
+    courses = models.ManyToManyField(Course, related_name="tutor_courses")
 
     def __str__(self):
         return self.user.get_full_name()
