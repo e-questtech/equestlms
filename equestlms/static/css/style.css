@@ -857,6 +857,11 @@ button.bg-danger:hover {
     margin-right: 30px;
     width: 160px;
 }
+.logo img {
+	height: 65px;
+	width: 70px;
+
+}
 .header-navbar-rht {
     margin: 0;
 	margin-left: 0;
