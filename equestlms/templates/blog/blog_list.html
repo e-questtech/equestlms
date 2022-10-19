@@ -2,23 +2,7 @@
 {% load static %}
 {% block body %}
 			<!-- Breadcrumb -->
-			<div class="breadcrumb-bar">
-				<div class="container">
-					<div class="row">
-						<div class="col-md-12 col-12">
-							<div class="breadcrumb-list">
-								<nav aria-label="breadcrumb" class="page-breadcrumb">
-									<ol class="breadcrumb">
-										<li class="breadcrumb-item"><a href="index.html">Home</a></li>
-										<li class="breadcrumb-item" aria-current="page">{{ request.META.HTTP_REFERRER }}</li>
-										<li class="breadcrumb-item" aria-current="page">{{ request.path }}</li>
-									</ol>
-								</nav>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+      {% include '_partials/_breadcrumbs.html' %}
 			<!-- /Breadcrumb -->
 
 			<!-- Course -->

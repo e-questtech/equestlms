@@ -1,6 +1,7 @@
 from ckeditor.fields import RichTextField
 from django.db import models
 from django.template.defaultfilters import striptags, truncatechars
+from django.urls import reverse
 from django.utils.text import slugify
 from django_resized import ResizedImageField
 
@@ -62,3 +63,6 @@ class Blog(TimeBasedModel):
         """
         cleaned_preview = striptags(self.description)
         return truncatechars(cleaned_preview, 400)
+
+    def get_absolute_url(self):
+        return reverse("blog:blog_detail", kwargs={"slug": self.slug})
