@@ -10,11 +10,11 @@ from task.models import Task
 @receiver(post_save, sender=Course)
 def create_new_course_classroom(sender, instance, **kwargs):
 
-    if instance.new is True:
+    if instance.is_new is True:
         ClassRoom.objects.create(
             tutor=instance.tutors, course=Course.objects.get(slug=instance.slug)
         )
-        instance.new = False
+        instance.is_new = False
         instance.save()
 
 

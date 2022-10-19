@@ -86,7 +86,7 @@ class CustomUser(TimeBasedModel, AbstractUser):
         if self.profile_pic:
             return self.profile_pic.url
 
-        return f"{settings.STATIC_URL}img/logo.svg"
+        return f"{settings.STATIC_URL}img/equest_logo.png"
 
     def get_absolute_url(self):
         if self.is_staff:
