@@ -4,23 +4,7 @@
 <!-- Breadcrumb -->
 
 			<!-- Breadcrumb -->
-			<div class="breadcrumb-bar">
-				<div class="container">
-					<div class="row">
-						<div class="col-md-12 col-12">
-							<div class="breadcrumb-list">
-								<nav aria-label="breadcrumb" class="page-breadcrumb">
-									<ol class="breadcrumb">
-										<li class="breadcrumb-item"><a href="index.html">Home</a></li>
-										<li class="breadcrumb-item" aria-current="page">Pages</li>
-										<li class="breadcrumb-item" aria-current="page">Blog Details</li>
-									</ol>
-								</nav>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+      {% include '_partials/_breadcrumbs.html' %}
 			<!-- /Breadcrumb -->
 
 			<!-- Blog Details -->
@@ -39,7 +23,7 @@
 										<ul>
 											<li>
 												<div class="post-author">
-													<a href="instructor-profile.html"><img src="{% static 'img/user/user.jpg' %}" alt="Post Author"> <span>{{ object.author.username }}</span></a>
+													<a href="instructor-profile.html"><img src="{% static 'img/user/user.jpg' %}" alt="Post Author"> <span>{{ object.author.get_full_name }}</span></a>
 												</div>
 											</li>
 											<li><img class="img-fluid" src="{% static 'img/icon/icon-22.svg' %}" alt="">{{ blog.created_at|date:'Y m D'}}</li>
@@ -95,7 +79,7 @@
 												<h4>
 													<a href="blog-details.html">{{ blogs.title }}</a>
 												</h4>
-												<p><img class="img-fluid" src="{% static 'assets/img/icon/icon-22.svg' %}" alt=""> {{ blog.created_at|date:'Y m D'}} </p>
+												<p><img class="img-fluid" src="{% static 'img/icon/icon-22.svg' %}" alt=""> {{ blog.created_at|date:'Y m D'}} </p>
 											</div>
 										</li>
                     {% endfor %}
@@ -120,22 +104,6 @@
 								</div>
 							</div>
 							<!-- /Categories -->
-
-							<!-- Archives Categories -->
-							<div class="card category-widget blog-widget">
-								<div class="card-header">
-									<h4 class="card-title">Archives</h4>
-								</div>
-								<div class="card-body">
-									<ul class="categories">
-										<li><a href="javascript:void(0);"><i class="fas fa-angle-right"></i> January 2022 </a></li>
-										<li><a href="javascript:void(0);"><i class="fas fa-angle-right"></i> February 2022 </a></li>
-										<li><a href="javascript:void(0);"><i class="fas fa-angle-right"></i> April 2022 </a></li>
-									</ul>
-								</div>
-							</div>
-							<!-- /Archives Categories -->
-
 							<!-- Tags -->
 							<div class="card tags-widget blog-widget tags-card">
 								<div class="card-header">
@@ -171,7 +139,7 @@
 								<!-- Footer Widget -->
 								<div class="footer-widget footer-about">
 									<div class="footer-logo">
-										<img src="assets/img/equestlogo2.png" alt="logo">
+										<img src="assets/img/equest_logo.png" alt="logo">
 									</div>
 									<div class="footer-about-content">
 										<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut consequat mauris Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut consequat mauris</p>

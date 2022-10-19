@@ -1,5 +1,7 @@
 from ckeditor.fields import RichTextField
 from django.db import models
+from django.template.defaultfilters import striptags, truncatechars
+from django.urls import reverse
 from django.utils.text import slugify
 from django_resized import ResizedImageField
 
@@ -40,7 +42,7 @@ class Blog(TimeBasedModel):
     slug = models.SlugField(max_length=125, blank=True, null=True)
     tags = models.ManyToManyField(Tags)
     description = RichTextField()
-    image = ResizedImageField(size=[400, 300], upload_to="blog_img/")
+    image = ResizedImageField(size=[850, 300], quality=100, upload_to="blog_img/")
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
 
     def save(self, *args, **kwargs):
@@ -53,3 +55,14 @@ class Blog(TimeBasedModel):
     class Meta:
         verbose_name = "Blog"
         verbose_name_plural = "Blogs"
+
+    @property
+    def preview(self):
+        """
+        Sneak preview of the overview
+        """
+        cleaned_preview = striptags(self.description)
+        return truncatechars(cleaned_preview, 400)
+
+    def get_absolute_url(self):
+        return reverse("blog:blog_detail", kwargs={"slug": self.slug})

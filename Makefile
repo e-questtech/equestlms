@@ -74,3 +74,6 @@ test:
 
 update:
 	pip install -r requirements-dev.txt
+
+shell:
+	python manage.py shell

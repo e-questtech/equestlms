@@ -1,11 +1,11 @@
 from django.contrib import admin
 
-from course.models import Course, StudentsInTutorCourse
+from course.models import ClassRoom, Course, CourseCategory
 
 
 @admin.register(Course)
 class CourseAdmin(admin.ModelAdmin):
-    list_display = ["title", "preview", "duration_as_weeks", "price", "tutors"]
+    list_display = ["title", "preview", "duration_as_weeks", "price", "tutor"]
     list_filter = [
         "title",
         "start_date",
@@ -16,8 +16,20 @@ class CourseAdmin(admin.ModelAdmin):
     search_fields = ["title", "price", "overview", "tutor"]
 
 
-@admin.register(StudentsInTutorCourse)
-class StudentInTutorCourseAdmin(admin.ModelAdmin):
+@admin.register(CourseCategory)
+class CourseCategoryAdmin(admin.ModelAdmin):
+    list_display = [
+        "title",
+    ]
+    list_filter = [
+        "title",
+    ]
+    ordering = ["title"]
+    search_fields = ["title"]
+
+
+@admin.register(ClassRoom)
+class ClassRoomAdmin(admin.ModelAdmin):
     list_display = ["tutor", "course"]
     list_filter = ["tutor", "course"]
     ordering = [

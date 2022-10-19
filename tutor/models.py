@@ -1,6 +1,7 @@
 import auto_prefetch
 from django.db import models
 
+from course.models import Course
 from equestlms.home.models import CustomUser
 from equestlms.utils.models import TimeBasedModel
 
@@ -11,7 +12,7 @@ class Tutor(TimeBasedModel):
     )
     bio = models.CharField(max_length=100)
     about = models.TextField()
-    # class_students = models.ManyToManyField(Student, through="StudentsInClass")
+    courses = models.ManyToManyField(Course, related_name="tutor_courses")
 
     def __str__(self):
         return self.user.get_full_name()
