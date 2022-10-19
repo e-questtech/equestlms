@@ -66,6 +66,8 @@ python manage.py loaddata ../data.json
 - Create a branch in your local pc but branching from the develop branch.
 
 ```sh
+
+git checkout develop
 git checkout -b EQU-1-lowercased-short-description
 ```
 
