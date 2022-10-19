@@ -14,6 +14,11 @@ urlpatterns = [
     # User management
     path("", include("equestlms.home.urls", namespace="users")),
     path("accounts/", include("allauth.urls")),
+    # Blog
+    path("blog/", include("blog.urls", namespace="blog")),
+    path("videos/", include("videos.urls", namespace="videos")),
+    # Tutor
+    path("tutor/", include("tutor.urls", namespace="tutor")),
     # Your stuff: custom urls includes go here
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

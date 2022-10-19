@@ -1,0 +1,281 @@
+{% extends "base.html" %}
+{% load static %}
+{% block body %}
+<!-- Breadcrumb -->
+
+			<!-- Breadcrumb -->
+      {% include '_partials/_breadcrumbs.html' %}
+			<!-- /Breadcrumb -->
+
+			<!-- Blog Details -->
+			<section class="course-content">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-9 col-md-12">
+
+							<!-- Blog Post -->
+							<div class="blog">
+								<div class="blog-image">
+									<a href="blog-details.html"><img class="img-fluid" src="{{ object.image.url}}" alt="Post Image"></a>
+								</div>
+								<div class="blog-info clearfix">
+									<div class="post-left">
+										<ul>
+											<li>
+												<div class="post-author">
+													<a href="instructor-profile.html"><img src="{% static 'img/user/user.jpg' %}" alt="Post Author"> <span>{{ object.author.get_full_name }}</span></a>
+												</div>
+											</li>
+											<li><img class="img-fluid" src="{% static 'img/icon/icon-22.svg' %}" alt="">{{ blog.created_at|date:'Y m D'}}</li>
+											<li><img class="img-fluid" src="{% static 'img/icon/icon-23.svg' %}" alt="">
+                        {% for tag in object.tags.all %}
+                        {{ tag }},
+												{% endfor %}
+                      </li>
+										</ul>
+									</div>
+								</div>
+								<h3 class="blog-title"><a href="blog-details.html">{{ object.title }}</a></h3>
+								<div class="blog-content">
+									{{ object.description | striptags }}
+								</div>
+							</div>
+							<!-- /Blog Post -->
+
+						</div>
+
+						<!-- Blog Sidebar -->
+						<div class="col-lg-3 col-md-12 sidebar-right theiaStickySidebar">
+
+							<!-- Search -->
+							<div class="card search-widget blog-search blog-widget">
+								<div class="card-body">
+									<form class="search-form">
+										<div class="input-group">
+											<input type="text" placeholder="Search..." class="form-control">
+											<button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+										</div>
+									</form>
+								</div>
+							</div>
+							<!-- /Search -->
+
+							<!-- Latest Posts -->
+							<div class="card post-widget blog-widget">
+								<div class="card-header">
+									<h4 class="card-title">Recent Posts</h4>
+								</div>
+								<div class="card-body">
+									<ul class="latest-posts">
+
+										{% for blogs in recent %}
+										<li>
+											<div class="post-thumb">
+												<a href="{% url 'blog:blog_detail' blog.slug %}">
+													<img class="img-fluid" src="{{ blogs.image.url }}" alt="">
+												</a>
+											</div>
+											<div class="post-info">
+												<h4>
+													<a href="blog-details.html">{{ blogs.title }}</a>
+												</h4>
+												<p><img class="img-fluid" src="{% static 'img/icon/icon-22.svg' %}" alt=""> {{ blog.created_at|date:'Y m D'}} </p>
+											</div>
+										</li>
+                    {% endfor %}
+
+									</ul>
+								</div>
+							</div>
+							<!-- /Latest Posts -->
+
+							<!-- Categories -->
+							<div class="card category-widget blog-widget">
+								<div class="card-header">
+									<h4 class="card-title">Categories</h4>
+								</div>
+								<div class="card-body">
+									<ul class="categories">
+                    {% for categories in category %}
+
+										  <li><a href="{% url 'blog:category_detail' categories.slug %}"><i class="fas fa-angle-right"></i> {{ categories.name }} </a></li>
+										{% endfor %}
+									</ul>
+								</div>
+							</div>
+							<!-- /Categories -->
+							<!-- Tags -->
+							<div class="card tags-widget blog-widget tags-card">
+								<div class="card-header">
+									<h4 class="card-title">Latest Tags</h4>
+								</div>
+								<div class="card-body">
+									<ul class="tags">
+                    {% for tag in tags %}
+										<li><a href="javascript:void(0);" class="tag">{{ tag.name }}</a></li>
+										{% endfor %}
+									</ul>
+								</div>
+							</div>
+							<!-- /Tags -->
+
+						</div>
+						<!-- /Blog Sidebar -->
+
+					</div>
+				</div>
+			</section>
+			<!-- /Blog Details -->
+
+			<!-- Footer -->
+			<footer class="footer">
+
+				<!-- Footer Top -->
+				<div class="footer-top">
+					<div class="container">
+						<div class="row">
+							<div class="col-lg-4 col-md-6">
+
+								<!-- Footer Widget -->
+								<div class="footer-widget footer-about">
+									<div class="footer-logo">
+										<img src="assets/img/equest_logo.png" alt="logo">
+									</div>
+									<div class="footer-about-content">
+										<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut consequat mauris Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut consequat mauris</p>
+									</div>
+								</div>
+								<!-- /Footer Widget -->
+
+							</div>
+
+							<div class="col-lg-2 col-md-6">
+
+								<!-- Footer Widget -->
+								<div class="footer-widget footer-menu">
+									<h2 class="footer-title">For Instructor</h2>
+									<ul>
+										<li><a href="instructor-profile.html">Profile</a></li>
+										<li><a href="login.html">Login</a></li>
+										<li><a href="register.html">Register</a></li>
+										<li><a href="instructor-list.html">Instructor</a></li>
+										<li><a href="deposit-instructor-dashboard.html"> Dashboard</a></li>
+									</ul>
+								</div>
+								<!-- /Footer Widget -->
+
+							</div>
+
+							<div class="col-lg-2 col-md-6">
+
+								<!-- Footer Widget -->
+								<div class="footer-widget footer-menu">
+									<h2 class="footer-title">For Student</h2>
+									<ul>
+										<li><a href="student-profile.html">Profile</a></li>
+										<li><a href="login.html">Login</a></li>
+										<li><a href="register.html">Register</a></li>
+										<li><a href="students-list.html">Student</a></li>
+										<li><a href="deposit-student-dashboard.html"> Dashboard</a></li>
+									</ul>
+								</div>
+								<!-- /Footer Widget -->
+
+							</div>
+
+							<div class="col-lg-4 col-md-6">
+
+								<!-- Footer Widget -->
+								<div class="footer-widget footer-contact">
+									<h2 class="footer-title">News letter</h2>
+									<div class="news-letter">
+										<form>
+											<input type="text" class="form-control" placeholder="Enter your email address" name="email">
+										</form>
+									</div>
+									<div class="footer-contact-info">
+										<div class="footer-address">
+											<img src="assets/img/icon/icon-20.svg" alt="" class="img-fluid">
+											<p> 3556  Beech Street, San Francisco,<br> California, CA 94108 </p>
+										</div>
+										<p>
+											<img src="assets/img/icon/icon-19.svg" alt="" class="img-fluid">
+											dreamslms@example.com
+										</p>
+										<p class="mb-0">
+											<img src="assets/img/icon/icon-21.svg" alt="" class="img-fluid">
+											+19 123-456-7890
+										</p>
+									</div>
+								</div>
+								<!-- /Footer Widget -->
+
+							</div>
+
+						</div>
+					</div>
+				</div>
+				<!-- /Footer Top -->
+
+				<!-- Footer Bottom -->
+                <div class="footer-bottom">
+					<div class="container">
+
+						<!-- Copyright -->
+						<div class="copyright">
+							<div class="row">
+								<div class="col-md-6">
+									<div class="privacy-policy">
+										<ul>
+											<li><a href="term-condition.html">Terms</a></li>
+											<li><a href="privacy-policy.html">Privacy</a></li>
+										</ul>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="copyright-text">
+										<p class="mb-0">&copy; 2022 DreamsLMS. All rights reserved.</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- /Copyright -->
+
+					</div>
+				</div>
+				<!-- /Footer Bottom -->
+
+			</footer>
+			<!-- /Footer -->
+
+		</div>
+	   <!-- /Main Wrapper -->
+     {% endblock body %}
+
+     {% block bottom_js %}
+		<!-- jQuery -->
+		<script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+
+		<!-- Bootstrap Core JS -->
+		<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+
+		<!-- counterup JS -->
+		<script src="js/jquery.waypoints.js"></script>
+		<script src="js/jquery.counterup.min.js"></script>
+
+		<!-- Owl Carousel -->
+		<script src="{% static 'as/owl.carousel.min.js' %}"></script>
+
+		<!-- Slick Slider -->
+		<script src="{% static 'plugins/slick/slick.js' %}"></script>
+
+		<!-- Feature JS -->
+		<script src="{% static 'plugins/feather/feather.min.js' %}"></script>
+
+		<!-- Sticky Sidebar JS -->
+        <script src="{% static 'plugins/theia-sticky-sidebar/ResizeSensor.js' %}"></script>
+        <script src="{% static 'plugins/theia-sticky-sidebar/theia-sticky-sidebar.js' %}"></script>
+
+		<!-- Custom JS -->
+		<script src="{% static 'js/script.js' %}"></script>
+		{% endblock bottom_js %}

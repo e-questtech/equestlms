@@ -1,0 +1,22 @@
+<!-- Breadcrumb -->
+<div class="breadcrumb-bar mt-5 pt-5">
+	<div class="container ">
+		<div class="row">
+			<div class="col-md-12 col-12">
+				<div class="breadcrumb-list ">
+					<nav aria-label="breadcrumb"
+						class="page-breadcrumb">
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item"
+								aria-current="page"><a
+									href="{{request.META.HTTP_REFERER}}">Back</a></li>
+							<li class="breadcrumb-item"
+								aria-current="page">{{ request.path | cut:"/" | title }}</li>
+						</ol>
+					</nav>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- /Breadcrumb -->

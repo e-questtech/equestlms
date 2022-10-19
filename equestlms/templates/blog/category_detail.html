@@ -1,0 +1,222 @@
+{% extends "base.html" %}
+{% load static %}
+{% block body %}
+<!-- Breadcrumb -->
+{% include '_partials/_breadcrumbs.html' %}
+
+<!-- /Breadcrumb -->
+
+<!-- Course -->
+<section class="course-content">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-9 col-md-12">
+
+        <!-- Blog Post -->
+
+        {% if blog %}
+        {% for blogs in blog %}
+
+        <div class="blog">
+          <div class="blog-image">
+            <a href="{% url 'blog:blog_detail' blogs.slug %}"><img class="img-fluid" src="{{ blogs.image.url}}"
+                alt="Post Image"></a>
+          </div>
+          <div class="blog-info clearfix">
+            <div class="post-left">
+              <ul>
+                <li>
+                  <div class="post-author">
+                    <a href="instructor-profile.html"><img src="{% static 'img/user/user.jpg' %}" alt="Post Author">
+                      <span>{{ blogs.author.username}}</span></a>
+                  </div>
+                </li>
+                <li><img class="img-fluid" src="{% static 'img/icon/icon-22.svg' %}"
+                    alt="">{{ blogs.created_at|date:'Y m D' }}</li>
+
+                <li><img class="img-fluid" src="{% static 'img/icon/icon-23.svg' %}" alt="">
+                  {% for tag in blogs.tags.all %}
+                  {{ tag }},
+                  {% endfor %}
+                </li>
+
+
+
+
+
+              </ul>
+            </div>
+          </div>
+          <h3 class="blog-title"><a href="{% url 'blog:blog_detail' blogs.slug %}">{{ blogs.title}}</a></h3>
+          <div class="blog-content blog-read">
+            <p>{{blogs.preview }} </p>
+            <a href="{% url 'blog:blog_detail' blogs.slug %}" class="read-more btn btn-primary">Read More</a>
+          </div>
+        </div>
+
+        {% endfor %}
+        {% else %}
+        <h3>There is no Post in this category yet...</h3>
+        {% endif %}
+        <!-- /Blog Post -->
+        <!-- Blog pagination -->
+
+
+        <div class="row">
+          <div class="col-md-12">
+
+            {% if blog %}
+
+            <ul class="pagination lms-page">
+              {% if page_obj.has_previous %}
+              <li class="page-item prev">
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}" tabindex="-1"><i
+                    class="fas fa-angle-left"></i></a>
+              </li>
+              {% else %}
+              <li class="page-item prev disabled">
+                <a class="page-link disabled" href="" tabindex="-1"><i class="fas fa-angle-left"></i></a>
+              </li>
+              {%endif %}
+
+              {% for i in page_obj.paginator.page_range %}
+
+              <li class="page-item first-page {% if page_obj.number == i %} active {% endif %}">
+                <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+              </li>
+              {% endfor %}
+              {% if page_obj.has_next %}
+              <li class="page-item next">
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}"><i class="fas fa-angle-right"></i></a>
+              </li>
+              {% else %}
+              <li class="page-item next disabled">
+                <a class="page-link " href=""><i class="fas fa-angle-right"></i></a>
+              </li>
+              {% endif %}
+            </ul>
+            {% endif %}
+          </div>
+        </div>
+        <!-- /Blog pagination -->
+      </div>
+      <!-- Blog Sidebar -->
+      <div class="col-lg-3 col-md-12 sidebar-right theiaStickySidebar">
+
+        <!-- Search -->
+        <div class="card search-widget blog-search blog-widget">
+          <div class="card-body">
+            <form class="search-form">
+              <div class="input-group">
+                <input type="text" placeholder="Search..." class="form-control" name="q">
+                <span class="btn btn-primary"><i class="fa fa-search"></i></span>
+              </div>
+            </form>
+          </div>
+        </div>
+        <!-- /Search -->
+
+        <!-- Latest Posts -->
+        <div class="card post-widget blog-widget">
+          <div class="card-header">
+            <h4 class="card-title">Recent Posts</h4>
+          </div>
+          <div class="card-body">
+            <ul class="latest-posts">
+
+              {% for blog in recent %}
+              <li>
+                <div class="post-thumb">
+                  <a href="{% url 'blog:blog_detail' blog.slug %}">
+                    <img class="img-fluid" src="{{ blog.image.url}}" alt="">
+                  </a>
+                </div>
+                <div class="post-info">
+                  <h4>
+                    <a href="{% url 'blog:blog_detail' blog.slug %}">{{ blog.title}}</a>
+                  </h4>
+                  <p><img class="img-fluid" src="{% static 'img/icon/icon-22.svg' %}" alt="">
+                    {{ blog.created_at|date:'Y m D'}}</p>
+                </div>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+        <!-- /Latest Posts -->
+
+        <!-- Categories -->
+        <div class="card category-widget blog-widget">
+          <div class="card-header">
+            <h4 class="card-title">Categories</h4>
+          </div>
+          <div class="card-body">
+            <ul class="categories">
+
+              {% for categories in category %}
+              <li><a href="{% url 'blog:category_detail' categories.slug %}"><i class="fas fa-angle-right"></i>
+                  {{categories.name }}</a></li>
+              {% endfor %}
+              <!-- <li><a href="javascript:void(0);"><i class="fas fa-angle-right"></i> Courses </a></li>
+										<li><a href="javascript:void(0);"><i class="fas fa-angle-right"></i> Education </a></li>
+										<li><a href="javascript:void(0);"><i class="fas fa-angle-right"></i> Graphics Design </a></li>
+										<li><a href="javascript:void(0);"><i class="fas fa-angle-right"></i> Programming </a></li>
+										<li><a href="javascript:void(0);"><i class="fas fa-angle-right"></i> Web Design </a></li> -->
+            </ul>
+          </div>
+        </div>
+        <!-- /Categories -->
+        <!-- Tags -->
+        <div class="card tags-widget blog-widget tags-card">
+          <div class="card-header">
+            <h4 class="card-title">Latest Tags</h4>
+          </div>
+          <div class="card-body">
+            <ul class="tags">
+
+              {% for tag in tags %}
+
+              <li><a href="javascript:void(0);" class="tag">{{tag.name}}</a></li>
+              {% endfor %}
+              <!-- <li><a href="javascript:void(0);" class="tag">Java Script</a></li>
+										<li><a href="javascript:void(0);" class="tag">Css</a></li>
+										<li><a href="javascript:void(0);" class="tag">Jquery</a></li>
+										<li><a href="javascript:void(0);" class="tag">Java</a></li>
+										<li><a href="javascript:void(0);" class="tag">React</a></li> -->
+            </ul>
+          </div>
+        </div>
+        <!-- /Tags -->
+
+      </div>
+      <!-- /Blog Sidebar -->
+    </div>
+  </div>
+</section>
+<!-- /Course -->
+{% endblock body %}
+
+{% block bottom_js %}
+<!-- jQuery -->
+<script src="assets/js/jquery-3.6.0.min.js"></script>
+
+<!-- Bootstrap Core JS -->
+<script src="assets/js/bootstrap.bundle.min.js"></script>
+
+<!-- counterup JS -->
+<script src="assets/js/jquery.waypoints.js"></script>
+<script src="assets/js/jquery.counterup.min.js"></script>
+
+<!-- Owl Carousel -->
+<script src="assets/js/owl.carousel.min.js"></script>
+
+<!-- Slick Slider -->
+<script src="assets/plugins/slick/slick.js"></script>
+
+<!-- Sticky Sidebar JS -->
+<script src="assets/plugins/theia-sticky-sidebar/ResizeSensor.js"></script>
+<script src="assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
+
+<!-- Custom JS -->
+<script src="assets/js/script.js"></script>
+{% endblock bottom_js %}

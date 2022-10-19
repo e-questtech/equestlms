@@ -1,0 +1,145 @@
+{% extends "base.html" %}
+{% load static %}
+{% block body %}
+
+			<!-- Page Wrapper -->
+			<div class="page-content instructor-page-content">
+				<div class="container">
+					<div class="row">
+
+						<!-- Sidebar -->
+						<div class="col-xl-3 col-lg-4 col-md-12 theiaStickySidebar">
+							<div class="settings-widget dash-profile">
+								<div class="settings-menu p-0">
+									<div class="profile-bg">
+										<h5>Staff</h5>
+										<img src="{% static 'img/instructor-profile-bg.jpg' %}" alt="">
+										<div class="profile-img">
+											<a href="instructor-profile.html"><img src="{% static 'img/user/user15.jpg' %}" alt=""></a>
+										</div>
+									</div>
+									<div class="profile-group">
+										<div class="profile-name text-center">
+											<h4><a href="instructor-profile.html">{{ tutor }}</a></h4>
+											<p>Instructor</p>
+										</div>
+										<div class="go-dashboard text-center">
+											<a href="{% url 'admin:task_task_add' %}" class="btn btn-primary">Create New Task</a>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="settings-widget account-settings">
+								<div class="settings-menu">
+									<h3>DASHBOARD</h3>
+									<ul>
+										<li class="nav-item active">
+											<a href="{{ user.get_absolute_url }}" class="nav-link">
+												<i class="feather-home"></i> My Dashboard
+											</a>
+										</li>
+										<li class="nav-item">
+											<a href="{% url 'tutor:tutor_course' %}" class="nav-link">
+												<i class="feather-book"></i> My Courses
+											</a>
+										</li>
+										<li class="nav-item">
+											<a href="{% url 'tutor:tutor_task' %}" class="nav-link">
+												<i class="feather-star"></i> Tasks
+											</a>
+										</li>
+										<li class="nav-item">
+											<a href="instructor-orders.html" class="nav-link">
+												<i class="feather-bell"></i> Messages
+											</a>
+										</li>
+										<li class="nav-item">
+											<a href="{% url 'tutor:tutor_students' %}" class="nav-link">
+												<i class="feather-users"></i> Students
+											</a>
+										</li>
+									</ul>
+									<div class="instructor-title">
+										<h3>ACCOUNT SETTINGS</h3>
+									</div>
+									<ul>
+										<li class="nav-item">
+											<a href="instructor-edit-profile.html" class="nav-link ">
+												<i class="feather-settings"></i> Edit Profile
+											</a>
+										</li>
+										<li class="nav-item">
+											<a href="instructor-security.html" class="nav-link">
+												<i class="feather-user"></i> Security
+											</a>
+										</li>
+										<li class="nav-item">
+											<a href="index.html" class="nav-link">
+												<i class="feather-power"></i> Sign Out
+											</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<!-- /Sidebar -->
+
+						{% block tutor_dashboard_content %}
+						<!-- Instructor Dashboard -->
+						<div class="col-xl-9 col-lg-8 col-md-12">
+							<div class="row">
+								<div class="col-md-4 d-flex">
+									<div class="card instructor-card w-100">
+										<div class="card-body">
+											<div class="instructor-inner">
+												<h6>STUDENTS ENROLLMENTS</h6>
+												<h4 class="instructor-text-info">{{ class.course.student_courses_count }}</h4>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-4 d-flex">
+									<div class="card instructor-card w-100">
+										<div class="card-body">
+											<div class="instructor-inner">
+												<h6>COURSES RATING</h6>
+												<h4 class="instructor-text-warning">4.80</h4>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-12">
+									<div class="card instructor-card">
+										<div class="card-header">
+											<h4>Bio</h4>
+										</div>
+										<div class="card-body">
+											<p>{{ tutor.bio }}</p>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-12">
+									<div class="card instructor-card">
+										<div class="card-header">
+											<h4>About</h4>
+										</div>
+										<div class="card-body">
+											<p>{{ tutor.about }}</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- /Instructor Dashboard -->
+
+					{% endblock tutor_dashboard_content %}
+
+					</div>
+				</div>
+			</div>
+			<!-- /Page Wrapper -->
+{% endblock %}

@@ -857,6 +857,11 @@ button.bg-danger:hover {
     margin-right: 30px;
     width: 160px;
 }
+.logo img {
+	height: 65px;
+	width: 70px;
+
+}
 .header-navbar-rht {
     margin: 0;
 	margin-left: 0;
@@ -6721,8 +6726,8 @@ input[type=password]::-ms-clear
 .blog-image img {
 	display: block;
 	position: relative;
-	width: 100%;
-	height: auto;
+	width: 850px;
+	height: 300px;
 }
 .blog-image img {
     -webkit-transform: translateZ(0);
@@ -11908,4 +11913,31 @@ input[type=password]::-ms-clear
 		width: 100%;
 		margin-right: 0;
 	}
+}
+
+/* Tooltip container */
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+
+  /* Position the tooltip text - see examples below! */
+  position: absolute;
+  z-index: 1;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+  visibility: visible;
 }

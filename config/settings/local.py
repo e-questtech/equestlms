@@ -1,7 +1,7 @@
 import os
+from urllib.parse import urlparse
 
 from .base import *  # noqa
-from .base import urlparse  # noqa
 from .base import ROOT_DIR, env  # noqa
 
 # GENERAL
@@ -60,7 +60,6 @@ if os.getenv("DATABASE_URL", "") != "":
             "HOST": r.hostname,
             "PASSWORD": r.password,
             "PORT": r.port,
-            # "OPTIONS": {"sslmode": "require"},
         }
     }
 else:
