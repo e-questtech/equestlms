@@ -29,7 +29,7 @@ class CourseCategory(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse("home:courses", kwargs={"slug": self.title})
+        return reverse("home:course", kwargs={"slug": self.title})
 
     def get_all_courses(self):
         courses_in_category = Course.objects.filter(category=self.title)
@@ -43,9 +43,7 @@ class Course(TimeBasedModel):
     """
 
     title = models.CharField(max_length=125, help_text="Title of the course")
-    category = models.ForeignKey(
-        CourseCategory, on_delete=models.CASCADE, default=1
-    )  # Remove thhe default in develop branch
+    category = models.ForeignKey(CourseCategory, on_delete=models.CASCADE)  # Remove thhe default in develop branch
     slug = models.SlugField(max_length=125, blank=True, null=True)
     overview = RichTextField()
     cover_image = models.ImageField(upload_to="./courses_cover_images/")
@@ -71,6 +69,7 @@ class Course(TimeBasedModel):
 
     def save(self, *args, **kwargs):
         uuid_start = str(uuid.uuid1()).split("-", 1)[0]
+        print(uuid_start)
         if not self.pk:
             self.slug = slugify(self.title) + "-" + uuid_start
 
@@ -81,7 +80,7 @@ class Course(TimeBasedModel):
 
     @property
     def tutor_courses_count(self):
-        return Course.objects.filter(tutors=self.tutors).count()
+        return Course.objects.filter(tutors=self.tutor).count()
 
     @property
     def student_courses_count(self):

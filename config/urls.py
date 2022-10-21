@@ -16,6 +16,9 @@ urlpatterns = [
     path("accounts/", include("allauth.urls")),
     # Blog
     path("blog/", include("blog.urls", namespace="blog")),
+    # Course
+    path("course/", include("course.urls", namespace="course")),
+    # vVideos
     path("videos/", include("videos.urls", namespace="videos")),
     # Tutor
     path("tutor/", include("tutor.urls", namespace="tutor")),
