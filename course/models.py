@@ -22,6 +22,9 @@ class CourseCategory(models.Model):
     is_top = models.BooleanField(default=False)
     courses = models.ManyToManyField("course.Course", blank=True)
 
+    class Meta:
+        verbose_name_plural = 'Course categories'
+
     def __str__(self):
         return self.title
 
