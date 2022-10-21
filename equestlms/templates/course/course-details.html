@@ -501,8 +501,9 @@
 									aria-current="page">Courses</li>
 								<li class="breadcrumb-item"
 									aria-current="page">All Courses</li>
+								<!-- Course title for breadcrumb -->
 								<li class="breadcrumb-item active"
-									aria-current="page">The Complete Web Developer Course 2.0</li>
+									aria-current="page">{{ course.title }}</li>
 							</ol>
 						</nav>
 					</div>
@@ -536,9 +537,11 @@
 												</a>
 											</div>
 											<div class="instructor-detail">
-												<h5><a href="instructor-profile.html">Nicole Brown</a>
+												<h5>
+													<a
+														href="instructor-profile.html">{{ course.tutor}}</a>
 												</h5>
-												<p>UX/UI Designer</p>
+												<p>{{ course.tutor.bio }}</p>
 											</div>
 											<div class="rating mb-0 ms-3">
 												<i class="fas fa-star filled"></i>
@@ -551,7 +554,7 @@
 													(15)</span>
 											</div>
 										</div>
-										<span class="web-badge text-dark">WEB DEVELPMENT</span>
+										<span class="web-badge text-dark">{{course.category}}</span>
 									</div>
 									<div
 										class="course-info d-flex align-items-center border-bottom-0 p-0 m-0">
@@ -579,7 +582,7 @@
 										<i class="fa-solid fa-play"></i>
 									</div>
 									<img class="img-fluid"
-										src="assets/img/video.jpg"
+										src="{{course.cover_image.url}}"
 										alt="">
 								</a>
 							</div>
@@ -595,18 +598,7 @@
 						<div class="card-body">
 							<h5 class="subs-title">Overview</h5>
 							<h6>Course Description</h6>
-							<p>Lorem Ipsum is simply dummy text of the printing and
-								typesetting industry. Lorem Ipsum has been the industry's
-								standard dummy text ever since the 1500s, when an unknown
-								printer took a galley of type and scrambled it to make a type
-								specimen book. It has survived not only five centuries, but also
-								the leap into electronic typesetting, remaining essentially
-								unchanged.</p>
-							<p>It was popularised in the 1960s with the release of Letraset
-								sheets containing Lorem Ipsum passages, and more recently with
-								desktop publishing software like Aldus PageMaker including
-								versions of Lorem Ipsum.</p>
-
+							{{course.overview|safe}}
 							<h6>What you'll learn</h6>
 							<div class="row">
 								<div class="col-md-6">
@@ -658,8 +650,7 @@
 										aria-expanded="false">In which areas do you operate?</a>
 								</h6>
 								<div id="collapseOne"
-									class="card-collapse collapse"
-									>
+									class="card-collapse collapse">
 									<ul>
 										<li>
 											<p><img src="assets/img/icon/play.svg"
@@ -722,8 +713,7 @@
 										aria-expanded="false">The Brief</a>
 								</h6>
 								<div id="course2"
-									class="card-collapse collapse"
-									>
+									class="card-collapse collapse">
 									<ul>
 										<li>
 											<p><img src="assets/img/icon/play.svg"
@@ -786,8 +776,7 @@
 										aria-expanded="false">Wireframing Low Fidelity</a>
 								</h6>
 								<div id="course3"
-									class="card-collapse collapse"
-								>
+									class="card-collapse collapse">
 									<ul>
 										<li>
 											<p><img src="assets/img/icon/play.svg"
@@ -850,8 +839,7 @@
 										aria-expanded="false">Type, Color & Icon Introduction</a>
 								</h6>
 								<div id="coursefour"
-									class="card-collapse collapse"
-									>
+									class="card-collapse collapse">
 									<ul>
 										<li>
 											<p><img src="assets/img/icon/play.svg"
@@ -924,8 +912,9 @@
 										</a>
 									</div>
 									<div class="instructor-detail">
-										<h5><a href="instructor-profile.html">Nicole Brown</a></h5>
-										<p>UX/UI Designer</p>
+										<h5><a href="instructor-profile.html">{{course.tutor}}</a>
+										</h5>
+										<p>{{course.tutor.bio}}</p>
 									</div>
 								</div>
 								<div class="rating">
@@ -942,7 +931,7 @@
 								<div class="cou-info">
 									<img src="assets/img/icon/play.svg"
 										alt="">
-									<p>5 Courses</p>
+									<p>{{course.tutor_courses_count}} Courses</p>
 								</div>
 								<div class="cou-info">
 									<img src="assets/img/icon/icon-01.svg"
@@ -960,13 +949,8 @@
 									<p>270,866 students enrolled</p>
 								</div>
 							</div>
-							<p>UI/UX Designer, with 7+ Years Experience. Guarantee of High
-								Quality Work.</p>
-							<p>Skills: Web Design, UI Design, UX/UI Design, Mobile Design,
-								User Interface Design, Sketch, Photoshop, GUI, Html, Css, Grid
-								Systems, Typography, Minimal, Template, English, Bootstrap,
-								Responsive Web Design, Pixel Perfect, Graphic Design, Corporate,
-								Creative, Flat, Luxury and much more.</p>
+							<p>{{course.tutor.bio}}</p>
+							<p>{{course.tutor.about}}</p>
 
 							<p>Available for:</p>
 							<ul>
@@ -994,7 +978,8 @@
 										</a>
 									</div>
 									<div class="instructor-detail">
-										<h5><a href="instructor-profile.html">Nicole Brown</a></h5>
+										<h5><a href="instructor-profile.html">John Doe</a>
+										</h5>
 										<p>UX/UI Designer</p>
 									</div>
 								</div>
@@ -1070,7 +1055,8 @@
 							<div class="card-body">
 								<div class="video-details">
 									<div class="course-fee">
-										<h2 class="text-primary">$200</h2>
+										<h2 class="text-primary">${{course.price | floatformat:2}}
+										</h2>
 										<p><span>$99.00</span> 50% off</p>
 									</div>
 									<div class="row gx-2">

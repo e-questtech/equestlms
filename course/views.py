@@ -2,7 +2,6 @@ from django.views.generic import DetailView, ListView
 
 from course.models import Course
 
-
 class AvailableCourseListView(ListView):
     model = Course
     template_name = "course/available_course.html"
