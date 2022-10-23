@@ -1075,7 +1075,7 @@
 												class="btn btn-cart w-100">Add To Cart</a>
 										</div>
 										<div class="col-sm-6">
-											<a href="checkout.html"
+											<a href=" {% url 'course:handle-purchase' course.pk %} "
 												class="btn btn-enroll w-100">Buy Now</a>
 										</div>
 									</div>
@@ -1085,6 +1085,9 @@
 					</div>
 					<!-- /Video -->
 
+					<!-- Buy Now Modal -->
+
+					<!-- / Buy Now Modal -->
 					<!-- Include -->
 					<div class="card include-sec">
 						<div class="card-body">
@@ -1144,25 +1147,41 @@
 					</div>
 					<!-- /Features -->
 
-
 				</div>
 			</div>
 		</div>
 	</section>
 	<!-- /Pricing Plan -->
-
-
-
 </div>
 <!-- /Main Wrapper -->
 
-<!-- jQuery -->
-<script src="assets/js/jquery-3.6.0.min.js"></script>
 
-<!-- Bootstrap Core JS -->
-<script src="assets/js/bootstrap.bundle.min.js"></script>
-
-<!-- Custom JS -->
-<script src="assets/js/script.js"></script>
 
 {% endblock body %}
+
+{% block bottom_js %}
+<!-- jQuery -->
+<script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+
+<!-- Bootstrap Core JS -->
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+
+<!-- counterup JS -->
+<script src="{% static 'js/jquery.waypoints.js' %}"></script>
+<script src="{% static 'js/jquery.counterup.min.js' %}"></script>
+
+<!-- Owl Carousel -->
+<script src="{% static 'js/owl.carousel.min.js' %}"></script>
+
+<!-- Slick Slider -->
+<script src="{% static 'plugins/slick/slick.js' %}"></script>
+
+<!-- Sticky Sidebar JS -->
+<script
+	src="{% static 'plugins/theia-sticky-sidebar/ResizeSensor.js' %}"></script>
+<script
+	src="{% static 'plugins/theia-sticky-sidebar/theia-sticky-sidebar.js' %}"></script>
+
+<!-- Custom JS -->
+<script src="{% static 'js/script.js' %}"></script>
+{% endblock bottom_js %}
