@@ -15,7 +15,7 @@ urlpatterns = [
         name="course-detail",
     ),
     path(
-        "handle-purchase/<int:pk>/",
+        "handle-purchase/<slug:slug>/",
         view=course_view.HandlePurchaseView.as_view(),
         name="handle-purchase",
     ),

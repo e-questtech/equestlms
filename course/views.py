@@ -1,7 +1,7 @@
 from django.shortcuts import redirect
 from django.views.generic import DetailView, ListView
 from django.views import View
-from .models import Course
+from .models import ClassRoom, Course
 from django.core.mail import send_mail
 from django.contrib.auth import get_user_model
 from django.contrib import messages
@@ -24,20 +24,30 @@ class CourseDetailView(DetailView):
     template_name = "course/course-details.html"
     context_object_name = "course"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        course = Course.objects.get(slug=self.kwargs.get('slug'))
+        print(course)
+        context['classroom'] = ClassRoom.objects.get(course=course)
+        print("Me", context)
+        return super().get_context_data(**kwargs)
+
 
 class HandlePurchaseView(View):
     """
     Sends user details to admin admin and displays purchase status to user
     """
 
-    def get(self, request, pk):
-        course = Course.objects.get(pk=pk)
+    def get(self, request, slug):
+        course = Course.objects.get(slug=slug)
         if request.user.is_authenticated:
             user = User.objects.get(pk=request.user.pk)
             # Email admin
             admin_email_details = {
                 'subject': 'COURSE PURCHASE NOTIFICATION',
-                'message': f'A user with name {user} made a  purchase request. \n User details are as follows: \n Email: {user.email}',  # type: ignore
+                # type: ignore
+                # type: ignore
+                'message': f'A user with name {user} made a  purchase request. \n User details are as follows: \n Email: {user.email}',
                 'recipient_list': ['solomonuche42@gmail.com'],
                 'from_email': 'equestlms@equestlms.com'
 
