@@ -1,6 +1,11 @@
+from django.shortcuts import redirect
 from django.views.generic import DetailView, ListView
-
-from course.models import Course
+from django.views import View
+from .models import ClassRoom, Course
+from django.core.mail import send_mail
+from django.contrib.auth import get_user_model
+from django.contrib import messages
+User = get_user_model()
 
 
 class AvailableCourseListView(ListView):
@@ -16,5 +21,41 @@ class AvailableCourseListView(ListView):
 
 class CourseDetailView(DetailView):
     model = Course
-    template_name = "course/course_detail.html"
+    template_name = "course/course-details.html"
     context_object_name = "course"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        course = Course.objects.get(slug=self.kwargs.get('slug'))
+        print(course)
+        context['classroom'] = ClassRoom.objects.get(course=course)
+        print("Me", context)
+        return super().get_context_data(**kwargs)
+
+
+class HandlePurchaseView(View):
+    """
+    Sends user details to admin admin and displays purchase status to user
+    """
+
+    def get(self, request, slug):
+        course = Course.objects.get(slug=slug)
+        if request.user.is_authenticated:
+            user = User.objects.get(pk=request.user.pk)
+            # Email admin
+            admin_email_details = {
+                'subject': 'COURSE PURCHASE NOTIFICATION',
+                # type: ignore
+                # type: ignore
+                'message': f'A user with name {user} made a  purchase request. \n User details are as follows: \n Email: {user.email}',
+                'recipient_list': ['solomonuche42@gmail.com'],
+                'from_email': 'equestlms@equestlms.com'
+
+            }
+            send_mail(subject=admin_email_details['subject'], message=admin_email_details["message"],
+                      from_email=admin_email_details['from_email'],  recipient_list=admin_email_details['recipient_list'])  # type: ignore
+            # display message to user
+            messages.add_message(request, messages.INFO,
+                                 'Thank you for learning with Equest, your purchase request has been sent.')
+
+        return redirect(course)

@@ -14,4 +14,9 @@ urlpatterns = [
         view=course_view.CourseDetailView.as_view(),
         name="course-detail",
     ),
+    path(
+        "handle-purchase/<slug:slug>/",
+        view=course_view.HandlePurchaseView.as_view(),
+        name="handle-purchase",
+    ),
 ]
