@@ -78,7 +78,7 @@ class Course(TimeBasedModel):
 
     @property
     def tutor_courses_count(self):
-        return Course.objects.filter(tutors=self.tutors).count()
+        return Course.objects.filter(tutor=self.tutor).count()
 
     @property
     def student_courses_count(self):

@@ -11,6 +11,13 @@ from equestlms.utils.choices import TASKCHOICES
 from equestlms.utils.models import TimeBasedModel
 
 
+class TaskSubmission(TimeBasedModel):
+    tasks = models.ForeignKey("Task", on_delete=models.CASCADE)
+    mark_earned = models.IntegerField(null=True, blank=True)
+    task_file = models.FileField(upload_to="task_file/")
+    date_submitted = models.DateTimeField(auto_now_add=True, null=True)
+
+
 class Task(TimeBasedModel):
     """
     Assignments created by tutor
@@ -27,6 +34,7 @@ class Task(TimeBasedModel):
         "course.Course", on_delete=models.CASCADE, related_name="course_task"
     )
     due_date = models.DateField()
+    maximum_marks = models.IntegerField(null=True)
 
     def __str__(self) -> str:
         return self.title

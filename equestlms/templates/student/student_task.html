@@ -1,0 +1,58 @@
+{% extends './student_dashboard.html' %}
+{% load static %}
+{% block tutor_dashboard_content %}
+<!--Dashbord Student -->
+<!-- Profile Details -->
+<div class="col-xl-9 col-lg-8  col-md-12">
+  <div class="settings-widget">
+    <div class="settings-inner-blk p-0">
+      <div class="comman-space pb-0">
+        <div class="filter-grp ticket-grp d-flex align-items-center justify-content-between">
+          <h3>Tasks</h3>
+        </div>
+        <div class="settings-tickets-blk table-responsive">
+
+          <!-- Referred Users-->
+          <table class="table table-nowrap mb-0">
+            <thead>
+              <tr>
+                <th>Course</th>
+                <th>Title</th>
+                <th>Due Date</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+
+              {% for task in tasks %}
+
+              <tr>
+                <td><a href="{% url 'admin:task_task_change' task.id %}">{{ task.course }}</a></td>
+                <td>{{ task.title }}</td>
+                <td>{{ task.due_date }}</td>
+                {% if task.status == "Pending" %}
+                <td><span class="badge info-high">Pending</span>
+                </td>
+                {% else %}
+                <td><span class="badge info-low">Done</span>
+                  {% endif %}
+                <!-- <td style="padding:0px; border:0px;"><a href="{% url 'admin:task_task_delete' task.id %}" class=""><i
+                      class="feather-delete"></i></a></td> -->
+                <td ><a href="{% url 'student:student_task_detail' task.slug %}" class="edit-btn-blk "><i
+                      class="fas fa-eye"></i></a></td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          <!-- /Referred Users-->
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Profile Details -->
+
+<!-- /Dashbord Student -->
+{% endblock tutor_dashboard_content %}
