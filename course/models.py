@@ -134,3 +134,22 @@ class ClassRoom(TimeBasedModel):
 
     class Meta:
         unique_together = ("tutor", "course")
+
+
+class StudentMark(TimeBasedModel):
+    tutor = auto_prefetch.ForeignKey(
+        "tutor.Tutor", related_name="given_marks", on_delete=models.CASCADE
+    )
+
+    student = auto_prefetch.ForeignKey(
+        "student.Student", related_name="marks", on_delete=models.CASCADE
+    )
+
+    course = auto_prefetch.ForeignKey("course.Course", on_delete=models.CASCADE)
+
+    marks_obtained = models.IntegerField()
+
+    maximum_marks = models.IntegerField()
+
+    def __str__(self):
+        return f"{self.student.first_name } score"
