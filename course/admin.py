@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from course.models import ClassRoom, Course, CourseCategory
+from course.models import ClassRoom, Course, CourseCategory, StudentMark
 
 
 @admin.register(Course)
@@ -37,3 +37,14 @@ class ClassRoomAdmin(admin.ModelAdmin):
         "-updated_at",
     ]
     search_fields = ["tutor", "course"]
+
+
+@admin.register(StudentMark)
+class ClassRoomAdmin(admin.ModelAdmin):
+    list_display = ["student", "tutor", "course", "marks_obtained", "maximum_marks"]
+    list_filter = ["student", "tutor", "course", "marks_obtained", "maximum_marks"]
+    ordering = [
+        "-created_at",
+        "-updated_at",
+    ]
+    search_fields = ["tutor", "student", "course"]
