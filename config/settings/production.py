@@ -10,7 +10,8 @@ from .base import MIDDLEWARE, ROOT_DIR, env
 SECRET_KEY = env("DJANGO_SECRET_KEY")
 # https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = env.list(
-    "DJANGO_ALLOWED_HOSTS", default=["https://equest-lms.onrender.com"]
+    "DJANGO_ALLOWED_HOSTS",
+    default=["https://equest-lms.onrender.com", "equest-lms.onrender.com"],
 )
 
 # DATABASES
