@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: Equest LMS
+    env: python
+    buildCommand: "./build.sh"
+    startCommand: "./gunicorn.sh"
+    envVars:
+      - key: DATABASE_URL
+        value: "$DATABASE_URL"
+      - key: SECRET_KEY
+        generateValue: true
+      - key: WEB_CONCURRENCY
+        value: 4
+      - key: DJANGO_SETTINGS_MODULE
+        value: "config.settings.production"
+databases:
+  - type: postgres
+    version: 13
+    name: EquestLMSDB
+    envVars:
+      - key: POSTGRES_USER
+        value: "$POSTGRES_USER"
+      - key: POSTGRES_PASSWORD
+        value: "$POSTGRES_PASSWORD"
