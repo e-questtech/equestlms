@@ -15,7 +15,7 @@ services:
         value: "config.settings.production"
 databases:
   - type: postgres
-    version: 13
+    version: 15
     name: EquestLMSDB
     envVars:
       - key: POSTGRES_USER
