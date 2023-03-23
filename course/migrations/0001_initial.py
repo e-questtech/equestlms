@@ -62,7 +62,7 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('title', models.CharField(max_length=100)),
                 ('level', models.CharField(choices=[('Beginner', 'Beginner'), ('Intermediate', 'Intermediate'), ('Advanced', 'Advanced')], default='Beginner', max_length=50)),
-                ('cover_image', django_resized.forms.ResizedImageField(crop=None, force_format='JPEG', keep_meta=True, quality=100, scale=None, size=[1920, 1080], upload_to='')),
+                ('cover_image', django_resized.forms.ResizedImageField(crop=None, force_format='JPEG', keep_meta=True, quality=100, size=[1920, 1080], upload_to='')),
                 ('is_top', models.BooleanField(default=False)),
                 ('courses', models.ManyToManyField(blank=True, to='course.course')),
             ],

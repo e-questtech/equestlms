@@ -280,3 +280,6 @@ equestlms/media/
 # Loacal Databases
 db
 db.sqlite3
+
+*.db
+*sqlite3

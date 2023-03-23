@@ -24,7 +24,7 @@ class Migration(migrations.Migration):
                 ('title', models.CharField(max_length=255)),
                 ('slug', models.SlugField(blank=True, max_length=125, null=True)),
                 ('description', ckeditor.fields.RichTextField()),
-                ('image', django_resized.forms.ResizedImageField(crop=None, force_format='JPEG', keep_meta=True, quality=100, scale=None, size=[850, 300], upload_to='blog_img/')),
+                ('image', django_resized.forms.ResizedImageField(crop=None, force_format='JPEG', keep_meta=True, quality=100, size=[850, 300], upload_to='blog_img/')),
             ],
             options={
                 'verbose_name': 'Blog',

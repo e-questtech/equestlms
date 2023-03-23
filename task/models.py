@@ -12,6 +12,9 @@ from equestlms.utils.models import TimeBasedModel
 
 
 class TaskSubmission(TimeBasedModel):
+    student = models.ForeignKey(
+        "student.Student", null=True, blank=True, on_delete=models.CASCADE
+    )
     tasks = models.ForeignKey("Task", on_delete=models.CASCADE)
     mark_earned = models.IntegerField(null=True, blank=True)
     task_file = models.FileField(upload_to="task_file/")

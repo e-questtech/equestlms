@@ -37,7 +37,7 @@ class Migration(migrations.Migration):
                 ('is_new', models.BooleanField(default=True)),
                 ('email', models.EmailField(max_length=254, unique=True, verbose_name='email address')),
                 ('mobile_no', models.CharField(blank=True, max_length=20, null=True)),
-                ('profile_pic', django_resized.forms.ResizedImageField(blank=True, crop=None, force_format='JPEG', keep_meta=True, null=True, quality=75, scale=None, size=[1920, 1080], upload_to=equestlms.utils.media.MediaHelper.get_image_upload_path, verbose_name='Profile Picture')),
+                ('profile_pic', django_resized.forms.ResizedImageField(blank=True, crop=None, force_format='JPEG', keep_meta=True, null=True, quality=75, size=[1920, 1080], upload_to=equestlms.utils.media.MediaHelper.get_image_upload_path, verbose_name='Profile Picture')),
                 ('birthday', models.DateField(blank=True, null=True)),
                 ('gender', models.CharField(blank=True, choices=[('', 'Select'), ('Male', 'Male'), ('Female', 'Female'), ('Prefer Not To Say', 'Prefer Not To Say')], max_length=20, null=True)),
                 ('groups', models.ManyToManyField(blank=True, help_text='The groups this user belongs to. A user will get all permissions granted to each of their groups.', related_name='user_set', related_query_name='user', to='auth.group', verbose_name='groups')),
