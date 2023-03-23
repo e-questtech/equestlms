@@ -18,5 +18,5 @@ services:
 
 databases:
   - name: EquestLMSDB
-    databaseName: equestlmsdb
+    databaseName:  $DATABASE_URL
     user: equestlmsdb_user
