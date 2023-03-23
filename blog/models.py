@@ -37,7 +37,9 @@ class Tags(TimeBasedModel):
 
 
 class Blog(TimeBasedModel):
-    author = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    author = models.ForeignKey(
+        CustomUser, null=True, blank=True, on_delete=models.CASCADE
+    )
     title = models.CharField(max_length=255)
     slug = models.SlugField(max_length=125, blank=True, null=True)
     tags = models.ManyToManyField(Tags)
