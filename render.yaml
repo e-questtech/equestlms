@@ -6,19 +6,17 @@ services:
     startCommand: "./gunicorn.sh"
     envVars:
       - key: DATABASE_URL
-        value: "$DATABASE_URL"
+        fromDatabase:
+          name: EquestLMSDB
+          property: connectionString
       - key: SECRET_KEY
         generateValue: true
       - key: WEB_CONCURRENCY
         value: 4
       - key: DJANGO_SETTINGS_MODULE
         value: "config.settings.production"
+
 databases:
-  - type: postgres
-    version: 15
-    name: EquestLMSDB
-    envVars:
-      - key: POSTGRES_USER
-        value: "$POSTGRES_USER"
-      - key: POSTGRES_PASSWORD
-        value: "$POSTGRES_PASSWORD"
+  - name: EquestLMSDB
+    databaseName: EquestLMSDB
+    user: $POSTGRES_USER
