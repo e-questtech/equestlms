@@ -1,0 +1,48 @@
+{% extends './student_dashboard.html' %}
+{% load static %}
+{% block tutor_dashboard_content %}
+<!--Dashbord Student -->
+<!-- Profile Details -->
+<div class="col-xl-9 col-lg-8  col-md-12">
+  <div class="settings-widget">
+    <div class="settings-inner-blk p-0">
+      <div class="comman-space pb-0">
+        <div class="filter-grp ticket-grp d-flex align-items-center justify-content-between">
+          <h3>Submit Task</h3>
+        </div>
+        <div class="settings-tickets-blk table-responsive ">
+
+          <!-- Referred Users-->
+
+          <form method="post" class="m-3">
+            {% csrf_token %}
+            {{ form.errors}}
+            <div class="form-group">
+              <label for="exampleFormControlSelect1">Select Task</label>
+              {{ form.tasks}}
+            </div>
+
+            <div class="form-control ">
+
+              <!-- <input type="file" class="custom-file-input" id="customFile"> -->
+              {{form.task_file}}
+              <!-- <label class="custom-file-label" for="customFile">Choose file</label> -->
+            </div>
+            <div class="mt-3">
+                <input type="submit" class="btn btn-outline-secondary btn-sm" value="Submit Task">
+            </div>
+
+          </form>
+
+
+          <!-- /Referred Users-->
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Profile Details -->
+
+<!-- /Dashbord Student -->
+{% endblock tutor_dashboard_content %}
