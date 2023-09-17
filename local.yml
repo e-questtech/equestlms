@@ -1,0 +1,153 @@
+version: '3'
+
+volumes:
+  equest_local_postgres_data: {}
+  equest_local_postgres_data_backups: {}
+  equest_local_minio_storage: {}
+  rabbitmq_data:
+
+services:
+  django: &django
+    build:
+      context: .
+      dockerfile: ./compose/local/django/Dockerfile
+    image: equest_local_django
+    container_name: equest_local_django
+    depends_on:
+      - postgres
+      - redis
+    volumes:
+      - .:/app:z
+    env_file:
+      - ./.envs/.local/.django
+      - ./.envs/.local/.postgres
+    ports:
+      - "8000:8000"
+    deploy:
+      restart_policy:
+        condition: any
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+    command: /start
+
+  rabbitmq:
+    image: rabbitmq:3.9.7-management
+    ports:
+      - '5672:5672'    # AMQP port
+      - '15672:15672'  # HTTP management UI
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    environment:
+      - RABBITMQ_DEFAULT_USER=debug
+      - RABBITMQ_DEFAULT_PASS=debug
+
+  postgres:
+    build:
+      context: .
+      dockerfile: ./compose/production/postgres/Dockerfile
+    image: equest_production_postgres
+    container_name: equest_local_postgres
+    volumes:
+      - equest_local_postgres_data:/var/lib/postgresql/data
+      - equest_local_postgres_data_backups:/backups
+    env_file:
+      - ./.envs/.local/.postgres
+
+  # docs:
+  #   image: equest_local_docs
+  #   container_name: equest_local_docs
+  #   build:
+  #     context: .
+  #     dockerfile: ./compose/local/docs/Dockerfile
+  #   env_file:
+  #     - ./.envs/.local/.django
+  #   volumes:
+  #     - ./docs:/docs:z
+  #     - ./config:/app/config:z
+  #     - ./core:/app/core:z
+  #   ports:
+  #     - "9090:9090"
+  #   command: /start-docs
+
+  redis:
+    image: redis:6
+    container_name: equest_local_redis
+    ports:
+      - "6378:6378"
+
+  # minio:
+  #   image: minio/minio
+  #   container_name: equest_local_minio_storage
+  #   restart: always
+  #   working_dir: "/minio-image/storage"
+  #   volumes:
+  #     - equest_local_minio_storage:/data
+  #   env_file:
+  #     - ./.envs/.local/.aws
+  #   ports:
+  #     - "9000:9000"
+  #     - "9001:9001"
+  #   deploy:
+  #     restart_policy:
+  #       condition: any
+  #     resources:
+  #       limits:
+  #         cpus: '0.5'
+  #         memory: 2G
+  #   command: server /minio-image/storage --console-address :9001
+
+  # createbuckets:
+  #   image: minio/mc
+  #   depends_on:
+  #     - minio
+  #   entrypoint: >
+  #     /bin/sh -c "
+  #     apk add nc &&
+  #     while ! nc -z minio 9000; do echo 'Wait minio to startup...' && sleep 0.1; done; sleep 5 &&
+  #     /usr/bin/mc alias set myminio http://minio:9000 minioadmin minioadmin;
+  #     if ! /usr/bin/mc ls myminio/learngual-bucket &> /dev/null; then
+  #       /usr/bin/mc mb myminio/learngual-bucket;
+  #       /usr/bin/mc policy download myminio/learngual-bucket;
+  #     fi;
+  #     exit 0;
+  #     "
+  #   deploy:
+  #     restart_policy:
+  #       condition: none
+  #     resources:
+  #       limits:
+  #         cpus: '0.5'
+  #         memory: 2G
+
+  # celeryworker:
+  #   <<: *django
+  #   image: equest_local_celeryworker
+  #   container_name: equest_local_celeryworker
+  #   depends_on:
+  #     - redis
+  #     - postgres
+  #   ports: []
+  #   command: /start-celeryworker
+
+  # celerybeat:
+  #   <<: *django
+  #   image: equest_local_celerybeat
+  #   container_name: equest_local_celerybeat
+  #   depends_on:
+  #     - redis
+  #     - postgres
+  #   ports: []
+  #   command: /start-celerybeat
+
+  # flower:
+  #   <<: *django
+  #   image: equest_local_flower
+  #   container_name: equest_local_flower
+  #   depends_on:
+  #     - redis
+  #     - postgres
+  #   ports:
+  #     - "5555:5555"
+  #   command: /start-flower

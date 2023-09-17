@@ -230,3 +230,14 @@ make test
 ```sh
 make update
 ```
+
+## DOKCER
+
+1. Build the image
+```sh
+docker compose -f local.yml build
+```
+2. Spin it up
+```sh
+docker compose -f local.yml up
+```
