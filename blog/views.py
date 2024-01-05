@@ -9,7 +9,7 @@ class BlogListView(ListView):
     model = Blog
     template_name = "blog/blog_list.html"
     context_object_name = "blog"
-    paginate_by = 2
+    paginate_by = 5
 
     def get_queryset(self):
         context_object_name = Blog.objects.all().order_by("-id")

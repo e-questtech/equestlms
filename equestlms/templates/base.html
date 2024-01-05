@@ -1,84 +1,88 @@
-{% load static i18n %}<!DOCTYPE html>
+{% load static i18n %}
+<!DOCTYPE html>
 {% get_current_language as LANGUAGE_CODE %}
 <!DOCTYPE html>
 <html lang="{{LANGUAGE_CODE}}">
-	<head>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-		<title>Equest Tech</title>
+<head>
 
-		<!-- Favicon -->
-		<link rel="shortcut icon" type="image/x-icon" href="{% static 'img/equest_logo.png' %}">
-    {% block css %}
-    {% include './_partials/_stylesheets.html' %}
-    {% endblock css %}
-    <!-- Le javascript
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+  <title>Equest Tech</title>
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/equest_logo.png' %}">
+  {% block css %}
+  {% include './_partials/_stylesheets.html' %}
+  {% endblock css %}
+  <!-- Le javascript
     ================================================== -->
-    {# Placed at the top of the document so pages load faster with defer #}
-    {% block top_js %}
-    {% include './_partials/_javascripts.html' %}
-    {% endblock top_js %}
+  {# Placed at the top of the document so pages load faster with defer #}
+  {% block top_js %}
+  {% include './_partials/_javascripts.html' %}
+  {% endblock top_js %}
 
-	</head>
-	<body>
+</head>
 
-		<!-- Main Wrapper -->
-		<div class="main-wrapper">
+<body>
+
+  <!-- Main Wrapper -->
+  <div class="main-wrapper">
 
 
-      {% block navbar %}
-      {% if not request.path == "/accounts/signup/" and not request.path == "/accounts/login/" and not request.path == "/accounts/confirm-email/" %}
-      {% include './_partials/_navbar.html' %}
-      {% endif %}
-      {% endblock navbar %}
-      <div>
+    {% block navbar %}
+    {% if not request.path == "/accounts/signup/" and not request.path == "/accounts/login/" and not request.path == "/accounts/confirm-email/" %}
+    {% include './_partials/_navbar.html' %}
+    {% endif %}
+    {% endblock navbar %}
+    <div>
       {% include '_partials/_messages.html' %}
-      </div>
-      {% block body %}
+    </div>
+    {% block body %}
 
-      {% endblock body %}
-
-
-      {% block footer %}
-      {% if not request.path == "/accounts/signup/" and not request.path == "/accounts/login/" and not request.path == "/accounts/confirm-email/" %}
-      {% include './_partials/_footer.html' %}
-      {% endif %}
-      {% endblock footer %}
+    {% endblock body %}
 
 
+    {% block footer %}
+    {% if not request.path == "/accounts/signup/" and not request.path == "/accounts/login/" and not request.path == "/accounts/confirm-email/" %}
+    {% include './_partials/_footer.html' %}
+    {% endif %}
+    {% endblock footer %}
 
 
-		</div>
-	   <!-- /Main Wrapper -->
-
-{% block bottom_js %}
-		<!-- jQuery -->
-		<script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
-
-		<!-- Bootstrap Core JS -->
-		<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
-
-		<!-- counterup JS -->
-		<script src="{% static 'js/jquery.waypoints.js' %}"></script>
-		<script src="{% static 'js/jquery.counterup.min.js' %}"></script>
-
-		<!-- Select2 JS -->
-		<script src="{% static 'plugins/select2/js/select2.min.js' %}"></script>
-
-		<!-- Owl Carousel -->
-		<script src="{% static 'js/owl.carousel.min.js' %}"></script>
-
-		<!-- Slick Slider -->
-		<script src="{% static 'plugins/slick/slick.js' %}"></script>
-
-		<!-- Aos -->
-		<script src="{% static 'plugins/aos/aos.js' %}"></script>
-
-		<!-- Custom JS -->
-		<script src="{% static 'js/script.js' %}"></script>
-{% endblock bottom_js %}
 
 
-	</body>
+  </div>
+  <!-- /Main Wrapper -->
+
+  {% block bottom_js %}
+  <!-- jQuery -->
+  <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+
+  <!-- Bootstrap Core JS -->
+  <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+
+  <!-- counterup JS -->
+  <script src="{% static 'js/jquery.waypoints.js' %}"></script>
+  <script src="{% static 'js/jquery.counterup.min.js' %}"></script>
+
+  <!-- Select2 JS -->
+  <script src="{% static 'plugins/select2/js/select2.min.js' %}"></script>
+
+  <!-- Owl Carousel -->
+  <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+
+  <!-- Slick Slider -->
+  <script src="{% static 'plugins/slick/slick.js' %}"></script>
+
+  <!-- Aos -->
+  <script src="{% static 'plugins/aos/aos.js' %}"></script>
+
+  <!-- Custom JS -->
+  <script src="{% static 'js/script.js' %}"></script>
+  {% endblock bottom_js %}
+
+
+</body>
+
 </html>
